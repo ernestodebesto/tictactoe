@@ -9810,14 +9810,18 @@ document.addEventListener('DOMContentLoaded', function () {
         if ($('.field').eq(randomMove).hasClass('x') || $('.field').eq(randomMove).hasClass('y')) {
           _this.moveAI();
         } else {
-          var _this$setState2;
-
-          var arr = _this.state.takenFieldsY.slice();
-          arr.push($('.field').eq(randomMove).attr('data-tag'));
-          _this.setState((_this$setState2 = {}, _defineProperty(_this$setState2, $('.field').eq(randomMove).attr('id'), 'y'), _defineProperty(_this$setState2, 'takenFieldsY', arr), _this$setState2), function () {
-            _this.checkStatusComputer();
-          });
+          _this.makeAIMove(randomMove);
         }
+      };
+
+      _this.makeAIMove = function (destination) {
+        var _this$setState2;
+
+        var arr = _this.state.takenFieldsY.slice();
+        arr.push($('.field').eq(destination).attr('data-tag'));
+        _this.setState((_this$setState2 = {}, _defineProperty(_this$setState2, $('.field').eq(destination).attr('id'), 'y'), _defineProperty(_this$setState2, 'takenFieldsY', arr), _this$setState2), function () {
+          _this.checkStatusComputer();
+        });
       };
 
       _this.checkStatusPlayer = function () {
@@ -9877,76 +9881,100 @@ document.addEventListener('DOMContentLoaded', function () {
       _this.checkDangerAI = function () {
         if (_this.state.takenFieldsX.includes('1') && _this.state.takenFieldsX.includes('2') && !_this.state.takenFieldsY.includes('3')) {
           //rusz sie na 3
+          _this.makeAIMove(2);
           console.log('jest');
         } else if (_this.state.takenFieldsX.includes('1') && _this.state.takenFieldsX.includes('3') && !_this.state.takenFieldsY.includes('2')) {
           //rusz sie na 2)
           console.log('jest');
+          _this.makeAIMove(1);
         } else if (_this.state.takenFieldsX.includes('2') && _this.state.takenFieldsX.includes('3') && !_this.state.takenFieldsY.includes('1')) {
           //rusz sie na 1)
+          _this.makeAIMove(0);
           console.log('jest');
         } else if (_this.state.takenFieldsX.includes('4') && _this.state.takenFieldsX.includes('5') && !_this.state.takenFieldsY.includes('6')) {
           //rusz sie na 6)
           console.log('jest');
+          _this.makeAIMove(5);
         } else if (_this.state.takenFieldsX.includes('4') && _this.state.takenFieldsX.includes('6') && !_this.state.takenFieldsY.includes('5')) {
           //rusz sie na 5)
           console.log('jest');
+          _this.makeAIMove(4);
         } else if (_this.state.takenFieldsX.includes('5') && _this.state.takenFieldsX.includes('6') && !_this.state.takenFieldsY.includes('4')) {
           //rusz sie na 4)
+          _this.makeAIMove(3);
           console.log('jest');
         } else if (_this.state.takenFieldsX.includes('7') && _this.state.takenFieldsX.includes('8') && !_this.state.takenFieldsY.includes('9')) {
           //rusz sie na 9)
           console.log('jest');
+          _this.makeAIMove(8);
         } else if (_this.state.takenFieldsX.includes('7') && _this.state.takenFieldsX.includes('9') && !_this.state.takenFieldsY.includes('8')) {
           //rusz sie na 8)
           console.log('jest');
+          _this.makeAIMove(7);
         } else if (_this.state.takenFieldsX.includes('8') && _this.state.takenFieldsX.includes('9') && !_this.state.takenFieldsY.includes('7')) {
           //rusz sie na 7)
           console.log('jest');
+          _this.makeAIMove(6);
         } else if (_this.state.takenFieldsX.includes('1') && _this.state.takenFieldsX.includes('4') && !_this.state.takenFieldsY.includes('7')) {
           //rusz sie na 7)
+          _this.makeAIMove(6);
           console.log('jest');
         } else if (_this.state.takenFieldsX.includes('1') && _this.state.takenFieldsX.includes('7') && !_this.state.takenFieldsY.includes('4')) {
           //rusz sie na 4)
+          _this.makeAIMove(3);
           console.log('jest');
         } else if (_this.state.takenFieldsX.includes('4') && _this.state.takenFieldsX.includes('7') && !_this.state.takenFieldsY.includes('1')) {
           //rusz sie na 1)
+          _this.makeAIMove(0);
           console.log('jest');
         } else if (_this.state.takenFieldsX.includes('2') && _this.state.takenFieldsX.includes('5') && !_this.state.takenFieldsY.includes('8')) {
           //rusz sie na 8)
+          _this.makeAIMove(7);
           console.log('jest');
         } else if (_this.state.takenFieldsX.includes('2') && _this.state.takenFieldsX.includes('8') && !_this.state.takenFieldsY.includes('5')) {
           //rusz sie na 5)
+          _this.makeAIMove(4);
           console.log('jest');
         } else if (_this.state.takenFieldsX.includes('5') && _this.state.takenFieldsX.includes('8') && !_this.state.takenFieldsY.includes('2')) {
           //rusz sie na 2)
+          _this.makeAIMove(1);
           console.log('jest');
         } else if (_this.state.takenFieldsX.includes('3') && _this.state.takenFieldsX.includes('6') && !_this.state.takenFieldsY.includes('9')) {
           //rusz sie na 9)
+          _this.makeAIMove(8);
           console.log('jest');
         } else if (_this.state.takenFieldsX.includes('3') && _this.state.takenFieldsX.includes('9') && !_this.state.takenFieldsY.includes('6')) {
           //rusz sie na 6)
+          _this.makeAIMove(5);
           console.log('jest');
         } else if (_this.state.takenFieldsX.includes('6') && _this.state.takenFieldsX.includes('9') && !_this.state.takenFieldsY.includes('3')) {
           //rusz sie na 3)
+          _this.makeAIMove(2);
           console.log('jest');
         } else if (_this.state.takenFieldsX.includes('1') && _this.state.takenFieldsX.includes('5') && !_this.state.takenFieldsY.includes('9')) {
           //rusz sie na 9)
+          _this.makeAIMove(8);
           console.log('jest');
         } else if (_this.state.takenFieldsX.includes('5') && _this.state.takenFieldsX.includes('9') && !_this.state.takenFieldsY.includes('1')) {
           //rusz sie na 1)
+          _this.makeAIMove(0);
           console.log('jest');
         } else if (_this.state.takenFieldsX.includes('1') && _this.state.takenFieldsX.includes('9') && !_this.state.takenFieldsY.includes('5')) {
           //rusz sie na 5)
+          _this.makeAIMove(4);
           console.log('jest');
         } else if (_this.state.takenFieldsX.includes('3') && _this.state.takenFieldsX.includes('5') && !_this.state.takenFieldsY.includes('7')) {
           //rusz sie na 7)
+          _this.makeAIMove(6);
           console.log('jest');
         } else if (_this.state.takenFieldsX.includes('3') && _this.state.takenFieldsX.includes('7') && !_this.state.takenFieldsY.includes('5')) {
           //rusz sie na 5)
           console.log('jest');
           console.log('jest');
+          _this.makeAIMove(4);
         } else if (_this.state.takenFieldsX.includes('5') && _this.state.takenFieldsX.includes('7') && !_this.state.takenFieldsY.includes('3')) {
           //rusz sie na 3)
+          _this.makeAIMove(2);
           console.log('jest');
         } else {
           _this.randomMove(); //jesli nie spotkal zagrozenia robi randomMove
@@ -10017,6 +10045,8 @@ document.addEventListener('DOMContentLoaded', function () {
 
 
       //generator losowego ruchu - > ZROB !!! generator do gry w ktorej zaczyna komputer - ai pojawia sie w losowym rogu. potem drugi ruch(jesli czlowiek tma nie stoi to w przecwileglym rogu). przy trzecim ruchu sprawdzic czy jest danger. potem nastepny ruch ze scenariusza.
+
+      //zanim sprawdzi checkdanger zrob metode canIWIN
 
     }]);
 

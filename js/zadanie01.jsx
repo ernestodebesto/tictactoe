@@ -82,16 +82,24 @@ document.addEventListener('DOMContentLoaded', function() {
       if (($('.field').eq(randomMove).hasClass('x')) || ($('.field').eq(randomMove).hasClass('y'))) {
         this.moveAI();
       } else {
-        let arr = this.state.takenFieldsY.slice();
-        arr.push($('.field').eq(randomMove).attr('data-tag'))
-        this.setState({
-          [$('.field').eq(randomMove).attr('id')]: 'y',
-          takenFieldsY: arr
-        }, () => {
-          this.checkStatusComputer();
-        })
+        this.makeAIMove(randomMove)
       }
     }
+
+    makeAIMove = destination => {
+      let arr = this.state.takenFieldsY.slice();
+      arr.push($('.field').eq(destination).attr('data-tag'))
+      this.setState({
+        [$('.field').eq(destination).attr('id')]: 'y',
+        takenFieldsY: arr
+      }, () => {
+        this.checkStatusComputer();
+      })
+    }
+
+
+
+
 
     checkStatusPlayer = () => {
       if (this.state.takenFieldsX.includes('1') && this.state.takenFieldsX.includes('2') && this.state.takenFieldsX.includes('3')) {
@@ -145,89 +153,114 @@ document.addEventListener('DOMContentLoaded', function() {
         console.log('753');
       }
     }
+    //zanim sprawdzi checkdanger zrob metode canIWIN
     checkDangerAI = () => {
       if (this.state.takenFieldsX.includes('1') && this.state.takenFieldsX.includes('2') && !this.state.takenFieldsY.includes('3')) {
         //rusz sie na 3
+        this.makeAIMove(2)
         console.log('jest')
       } else if (this.state.takenFieldsX.includes('1') && this.state.takenFieldsX.includes('3') && !this.state.takenFieldsY.includes('2')){
         //rusz sie na 2)
         console.log('jest')
+        this.makeAIMove(1)
       } else if (this.state.takenFieldsX.includes('2') && this.state.takenFieldsX.includes('3') && !this.state.takenFieldsY.includes('1')){
         //rusz sie na 1)
+        this.makeAIMove(0)
         console.log('jest')
       }
       else if (this.state.takenFieldsX.includes('4') && this.state.takenFieldsX.includes('5') && !this.state.takenFieldsY.includes('6')){
         //rusz sie na 6)
         console.log('jest')
+        this.makeAIMove(5)
       } else if (this.state.takenFieldsX.includes('4') && this.state.takenFieldsX.includes('6') && !this.state.takenFieldsY.includes('5')){
         //rusz sie na 5)
         console.log('jest')
+        this.makeAIMove(4)
       } else if (this.state.takenFieldsX.includes('5') && this.state.takenFieldsX.includes('6') && !this.state.takenFieldsY.includes('4')){
         //rusz sie na 4)
+        this.makeAIMove(3)
         console.log('jest')
       }
       else if (this.state.takenFieldsX.includes('7') && this.state.takenFieldsX.includes('8') && !this.state.takenFieldsY.includes('9')){
         //rusz sie na 9)
         console.log('jest')
+        this.makeAIMove(8)
       } else if (this.state.takenFieldsX.includes('7') && this.state.takenFieldsX.includes('9') && !this.state.takenFieldsY.includes('8')){
         //rusz sie na 8)
         console.log('jest')
+        this.makeAIMove(7)
       } else if (this.state.takenFieldsX.includes('8') && this.state.takenFieldsX.includes('9') && !this.state.takenFieldsY.includes('7')){
         //rusz sie na 7)
         console.log('jest')
+        this.makeAIMove(6)
       }
       else if (this.state.takenFieldsX.includes('1') && this.state.takenFieldsX.includes('4') && !this.state.takenFieldsY.includes('7')){
         //rusz sie na 7)
+        this.makeAIMove(6)
         console.log('jest')
       } else if (this.state.takenFieldsX.includes('1') && this.state.takenFieldsX.includes('7') && !this.state.takenFieldsY.includes('4')){
         //rusz sie na 4)
+        this.makeAIMove(3)
         console.log('jest')
       } else if (this.state.takenFieldsX.includes('4') && this.state.takenFieldsX.includes('7') && !this.state.takenFieldsY.includes('1')){
         //rusz sie na 1)
+        this.makeAIMove(0)
         console.log('jest')
       }
 
       else if (this.state.takenFieldsX.includes('2') && this.state.takenFieldsX.includes('5') && !this.state.takenFieldsY.includes('8')){
         //rusz sie na 8)
+        this.makeAIMove(7)
         console.log('jest')
       } else if (this.state.takenFieldsX.includes('2') && this.state.takenFieldsX.includes('8') && !this.state.takenFieldsY.includes('5')){
         //rusz sie na 5)
+        this.makeAIMove(4)
         console.log('jest')
       }else if (this.state.takenFieldsX.includes('5') && this.state.takenFieldsX.includes('8') && !this.state.takenFieldsY.includes('2')){
         //rusz sie na 2)
+        this.makeAIMove(1)
         console.log('jest')
       }
       else if (this.state.takenFieldsX.includes('3') && this.state.takenFieldsX.includes('6') && !this.state.takenFieldsY.includes('9')){
         //rusz sie na 9)
+        this.makeAIMove(8)
         console.log('jest')
       } else if (this.state.takenFieldsX.includes('3') && this.state.takenFieldsX.includes('9') && !this.state.takenFieldsY.includes('6')){
         //rusz sie na 6)
+        this.makeAIMove(5)
         console.log('jest')
       } else if (this.state.takenFieldsX.includes('6') && this.state.takenFieldsX.includes('9') && !this.state.takenFieldsY.includes('3')){
         //rusz sie na 3)
+        this.makeAIMove(2)
         console.log('jest')
       }
 
       else if (this.state.takenFieldsX.includes('1') && this.state.takenFieldsX.includes('5') && !this.state.takenFieldsY.includes('9')){
         //rusz sie na 9)
+        this.makeAIMove(8)
         console.log('jest')
       }else if (this.state.takenFieldsX.includes('5') && this.state.takenFieldsX.includes('9') && !this.state.takenFieldsY.includes('1')){
         //rusz sie na 1)
+        this.makeAIMove(0)
         console.log('jest')
       } else if (this.state.takenFieldsX.includes('1') && this.state.takenFieldsX.includes('9') && !this.state.takenFieldsY.includes('5')){
         //rusz sie na 5)
+        this.makeAIMove(4)
         console.log('jest')
       }
 
       else if (this.state.takenFieldsX.includes('3') && this.state.takenFieldsX.includes('5') && !this.state.takenFieldsY.includes('7')){
         //rusz sie na 7)
+        this.makeAIMove(6)
         console.log('jest')
       } else if (this.state.takenFieldsX.includes('3') && this.state.takenFieldsX.includes('7') && !this.state.takenFieldsY.includes('5')){
         //rusz sie na 5)
         console.log('jest')
         console.log('jest')
+        this.makeAIMove(4)
       } else if (this.state.takenFieldsX.includes('5') && this.state.takenFieldsX.includes('7') && !this.state.takenFieldsY.includes('3')){
         //rusz sie na 3)
+        this.makeAIMove(2)
         console.log('jest')
       } else {
         this.randomMove(); //jesli nie spotkal zagrozenia robi randomMove
