@@ -1,0 +1,36 @@
+.row {
+  display:flex;
+}
+
+.field {
+  height: 125px;
+  width:125px;
+  border:1px solid black;
+}
+
+.x{
+  background-color: green;
+}
+
+.y {
+  background-color: red;
+}
+
+button {
+  width: 100px;
+  height: 50px;
+  margin: 100px;
+}
+
+/*.buttons {
+  width: 700px;
+  height: 700px;
+  border:1px solid black;
+}*/
+
+/*.container {
+  width: 800px;
+  height: 800px;
+  border:1px solid black;
+3
+}*/
