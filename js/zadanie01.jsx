@@ -43,6 +43,10 @@ document.addEventListener('DOMContentLoaded', function() {
     //zrobic metode ktora jesli ostatnio gracz/komputer sie pierwszy ruszal to teraz rusza sie pirwszy drugi gracz.
     // kiedy gracz zaczyna
     makeMove = (e) => {
+        if (e.currentTarget.className=== 'y field' || e.currentTarget.className=== 'x field' ){
+          console.log('zajete');
+        } else {
+
       let arr = this.state.takenFieldsX.slice();
       arr.push(e.target.getAttribute('data-tag'))
       this.setState({
@@ -55,8 +59,11 @@ document.addEventListener('DOMContentLoaded', function() {
       //  console.log($('.field[data-tag=1]') )
       //  console.log($('.field[data-tag=1]').attr('data-tag'));
 
-      setTimeout(this.moveAI, 150);
+      setTimeout(this.moveAI, 150); //przenies do callbacku
     }
+    }
+
+
 //niech gra sie zaczyna - 2 divy - graj pierwszy (obrazek) graj drugi(obrezaek) jeden pod drugim.
 // Jesli bedzie czas to dodac licznik. podzielic jakos plansze na czlowiek kontra komputer.
 
@@ -97,65 +104,102 @@ document.addEventListener('DOMContentLoaded', function() {
       })
     }
 
+    checkDraw = () => {
+
+    }
+
+    computerWins = () => {
+      console.log('computer wins');
+    }
+
     checkWinAI = () => {
       if (this.state.takenFieldsY.includes('1') && this.state.takenFieldsY.includes('2') && !this.state.takenFieldsX.includes('3')) {
       this.makeAIMove(2)
+      this.computerWins()
+
     } else if (this.state.takenFieldsY.includes('1') && this.state.takenFieldsY.includes('3') && !this.state.takenFieldsX.includes('2')){
       this.makeAIMove(1)
+      this.computerWins()
+
     } else if (this.state.takenFieldsY.includes('2') && this.state.takenFieldsY.includes('3') && !this.state.takenFieldsX.includes('1')){
       this.makeAIMove(0)
+      this.computerWins()
+
     }
     else if (this.state.takenFieldsY.includes('4') && this.state.takenFieldsY.includes('5') && !this.state.takenFieldsX.includes('6')){
       this.makeAIMove(5)
+      this.computerWins()
+
     } else if (this.state.takenFieldsY.includes('4') && this.state.takenFieldsY.includes('6') && !this.state.takenFieldsX.includes('5')){
       this.makeAIMove(4)
+      this.computerWins()
+
     } else if (this.state.takenFieldsY.includes('5') && this.state.takenFieldsY.includes('6') && !this.state.takenFieldsX.includes('4')){
       this.makeAIMove(3)
+      this.computerWins()
+
     }
     else if (this.state.takenFieldsY.includes('7') && this.state.takenFieldsY.includes('8') && !this.state.takenFieldsX.includes('9')){
       this.makeAIMove(8)
+      this.computerWins()
     } else if (this.state.takenFieldsY.includes('7') && this.state.takenFieldsY.includes('9') && !this.state.takenFieldsX.includes('8')){
       this.makeAIMove(7)
+      this.computerWins()
     } else if (this.state.takenFieldsY.includes('8') && this.state.takenFieldsY.includes('9') && !this.state.takenFieldsX.includes('7')){
       this.makeAIMove(6)
+      this.computerWins()
     }
     else if (this.state.takenFieldsY.includes('1') && this.state.takenFieldsY.includes('4') && !this.state.takenFieldsX.includes('7')){
       this.makeAIMove(6)
+      this.computerWins()
     } else if (this.state.takenFieldsY.includes('1') && this.state.takenFieldsY.includes('7') && !this.state.takenFieldsX.includes('4')){
       this.makeAIMove(3)
+      this.computerWins()
     } else if (this.state.takenFieldsY.includes('4') && this.state.takenFieldsY.includes('7') && !this.state.takenFieldsX.includes('1')){
       this.makeAIMove(0)
+      this.computerWins()
     }
     else if (!this.state.takenFieldsX.includes('8') && this.state.takenFieldsY.includes('2') && this.state.takenFieldsY.includes('5')){
-      console.log('ruszam');
       this.makeAIMove(7)
+      this.computerWins()
     } else if (this.state.takenFieldsY.includes('2') && this.state.takenFieldsY.includes('8') && !this.state.takenFieldsX.includes('5')){
       this.makeAIMove(4)
+      this.computerWins()
     }else if (this.state.takenFieldsY.includes('5') && this.state.takenFieldsY.includes('8') && !this.state.takenFieldsX.includes('2')){
       this.makeAIMove(1)
+      this.computerWins()
     }
     else if (this.state.takenFieldsY.includes('3') && this.state.takenFieldsY.includes('6') && !this.state.takenFieldsX.includes('9')){
       this.makeAIMove(8)
+      this.computerWins()
     } else if (this.state.takenFieldsY.includes('3') && this.state.takenFieldsY.includes('9') && !this.state.takenFieldsX.includes('6')){
       this.makeAIMove(5)
+      this.computerWins()
     } else if (this.state.takenFieldsY.includes('6') && this.state.takenFieldsY.includes('9') && !this.state.takenFieldsX.includes('3')){
       this.makeAIMove(2)
+      this.computerWins()
     }
 
     else if (this.state.takenFieldsY.includes('1') && this.state.takenFieldsY.includes('5') && !this.state.takenFieldsX.includes('9')){
       this.makeAIMove(8)
+      this.computerWins()
     }else if (this.state.takenFieldsY.includes('5') && this.state.takenFieldsY.includes('9') && !this.state.takenFieldsX.includes('1')){
       this.makeAIMove(0)
+      this.computerWins()
     } else if (this.state.takenFieldsY.includes('1') && this.state.takenFieldsY.includes('9') && !this.state.takenFieldsX.includes('5')){
       this.makeAIMove(4)
+      this.computerWins()
     }
 
     else if (this.state.takenFieldsY.includes('3') && this.state.takenFieldsY.includes('5') && !this.state.takenFieldsX.includes('7')){
       this.makeAIMove(6)
+      this.computerWins()
     } else if (this.state.takenFieldsY.includes('3') && this.state.takenFieldsY.includes('7') && !this.state.takenFieldsX.includes('5')){
       this.makeAIMove(4)
+      this.computerWins()
     } else if (this.state.takenFieldsY.includes('5') && this.state.takenFieldsY.includes('7') && !this.state.takenFieldsX.includes('3')){
       this.makeAIMove(2)
+      this.computerWins()
     } else {
       this.checkDangerAI();
     }
@@ -194,7 +238,6 @@ document.addEventListener('DOMContentLoaded', function() {
         this.makeAIMove(0)
       }
       else if (!this.state.takenFieldsY.includes('8') && this.state.takenFieldsX.includes('2') && this.state.takenFieldsX.includes('5')){
-        console.log('ruszam');
         this.makeAIMove(7)
       } else if (this.state.takenFieldsX.includes('2') && this.state.takenFieldsX.includes('8') && !this.state.takenFieldsY.includes('5')){
         this.makeAIMove(4)

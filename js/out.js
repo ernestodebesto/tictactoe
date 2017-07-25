@@ -9783,18 +9783,22 @@ document.addEventListener('DOMContentLoaded', function () {
       var _this = _possibleConstructorReturn(this, (TicTacBoard.__proto__ || Object.getPrototypeOf(TicTacBoard)).call(this, props));
 
       _this.makeMove = function (e) {
-        var _this$setState;
+        if (e.currentTarget.className === 'y field' || e.currentTarget.className === 'x field') {
+          console.log('zajete');
+        } else {
+          var _this$setState;
 
-        var arr = _this.state.takenFieldsX.slice();
-        arr.push(e.target.getAttribute('data-tag'));
-        _this.setState((_this$setState = {}, _defineProperty(_this$setState, e.currentTarget.id, 'x'), _defineProperty(_this$setState, 'takenFieldsX', arr), _this$setState), function () {
-          _this.checkStatusPlayer();
-        });
+          var arr = _this.state.takenFieldsX.slice();
+          arr.push(e.target.getAttribute('data-tag'));
+          _this.setState((_this$setState = {}, _defineProperty(_this$setState, e.currentTarget.id, 'x'), _defineProperty(_this$setState, 'takenFieldsX', arr), _this$setState), function () {
+            _this.checkStatusPlayer();
+          });
 
-        //  console.log($('.field[data-tag=1]') )
-        //  console.log($('.field[data-tag=1]').attr('data-tag'));
+          //  console.log($('.field[data-tag=1]') )
+          //  console.log($('.field[data-tag=1]').attr('data-tag'));
 
-        setTimeout(_this.moveAI, 150);
+          setTimeout(_this.moveAI, 150); //przenies do callbacku
+        }
       };
 
       _this.endGame = function (winner) {
@@ -9824,56 +9828,85 @@ document.addEventListener('DOMContentLoaded', function () {
         });
       };
 
+      _this.checkDraw = function () {};
+
+      _this.computerWins = function () {
+        console.log('computer wins');
+      };
+
       _this.checkWinAI = function () {
         if (_this.state.takenFieldsY.includes('1') && _this.state.takenFieldsY.includes('2') && !_this.state.takenFieldsX.includes('3')) {
           _this.makeAIMove(2);
+          _this.computerWins();
         } else if (_this.state.takenFieldsY.includes('1') && _this.state.takenFieldsY.includes('3') && !_this.state.takenFieldsX.includes('2')) {
           _this.makeAIMove(1);
+          _this.computerWins();
         } else if (_this.state.takenFieldsY.includes('2') && _this.state.takenFieldsY.includes('3') && !_this.state.takenFieldsX.includes('1')) {
           _this.makeAIMove(0);
+          _this.computerWins();
         } else if (_this.state.takenFieldsY.includes('4') && _this.state.takenFieldsY.includes('5') && !_this.state.takenFieldsX.includes('6')) {
           _this.makeAIMove(5);
+          _this.computerWins();
         } else if (_this.state.takenFieldsY.includes('4') && _this.state.takenFieldsY.includes('6') && !_this.state.takenFieldsX.includes('5')) {
           _this.makeAIMove(4);
+          _this.computerWins();
         } else if (_this.state.takenFieldsY.includes('5') && _this.state.takenFieldsY.includes('6') && !_this.state.takenFieldsX.includes('4')) {
           _this.makeAIMove(3);
+          _this.computerWins();
         } else if (_this.state.takenFieldsY.includes('7') && _this.state.takenFieldsY.includes('8') && !_this.state.takenFieldsX.includes('9')) {
           _this.makeAIMove(8);
+          _this.computerWins();
         } else if (_this.state.takenFieldsY.includes('7') && _this.state.takenFieldsY.includes('9') && !_this.state.takenFieldsX.includes('8')) {
           _this.makeAIMove(7);
+          _this.computerWins();
         } else if (_this.state.takenFieldsY.includes('8') && _this.state.takenFieldsY.includes('9') && !_this.state.takenFieldsX.includes('7')) {
           _this.makeAIMove(6);
+          _this.computerWins();
         } else if (_this.state.takenFieldsY.includes('1') && _this.state.takenFieldsY.includes('4') && !_this.state.takenFieldsX.includes('7')) {
           _this.makeAIMove(6);
+          _this.computerWins();
         } else if (_this.state.takenFieldsY.includes('1') && _this.state.takenFieldsY.includes('7') && !_this.state.takenFieldsX.includes('4')) {
           _this.makeAIMove(3);
+          _this.computerWins();
         } else if (_this.state.takenFieldsY.includes('4') && _this.state.takenFieldsY.includes('7') && !_this.state.takenFieldsX.includes('1')) {
           _this.makeAIMove(0);
+          _this.computerWins();
         } else if (!_this.state.takenFieldsX.includes('8') && _this.state.takenFieldsY.includes('2') && _this.state.takenFieldsY.includes('5')) {
-          console.log('ruszam');
           _this.makeAIMove(7);
+          _this.computerWins();
         } else if (_this.state.takenFieldsY.includes('2') && _this.state.takenFieldsY.includes('8') && !_this.state.takenFieldsX.includes('5')) {
           _this.makeAIMove(4);
+          _this.computerWins();
         } else if (_this.state.takenFieldsY.includes('5') && _this.state.takenFieldsY.includes('8') && !_this.state.takenFieldsX.includes('2')) {
           _this.makeAIMove(1);
+          _this.computerWins();
         } else if (_this.state.takenFieldsY.includes('3') && _this.state.takenFieldsY.includes('6') && !_this.state.takenFieldsX.includes('9')) {
           _this.makeAIMove(8);
+          _this.computerWins();
         } else if (_this.state.takenFieldsY.includes('3') && _this.state.takenFieldsY.includes('9') && !_this.state.takenFieldsX.includes('6')) {
           _this.makeAIMove(5);
+          _this.computerWins();
         } else if (_this.state.takenFieldsY.includes('6') && _this.state.takenFieldsY.includes('9') && !_this.state.takenFieldsX.includes('3')) {
           _this.makeAIMove(2);
+          _this.computerWins();
         } else if (_this.state.takenFieldsY.includes('1') && _this.state.takenFieldsY.includes('5') && !_this.state.takenFieldsX.includes('9')) {
           _this.makeAIMove(8);
+          _this.computerWins();
         } else if (_this.state.takenFieldsY.includes('5') && _this.state.takenFieldsY.includes('9') && !_this.state.takenFieldsX.includes('1')) {
           _this.makeAIMove(0);
+          _this.computerWins();
         } else if (_this.state.takenFieldsY.includes('1') && _this.state.takenFieldsY.includes('9') && !_this.state.takenFieldsX.includes('5')) {
           _this.makeAIMove(4);
+          _this.computerWins();
         } else if (_this.state.takenFieldsY.includes('3') && _this.state.takenFieldsY.includes('5') && !_this.state.takenFieldsX.includes('7')) {
           _this.makeAIMove(6);
+          _this.computerWins();
         } else if (_this.state.takenFieldsY.includes('3') && _this.state.takenFieldsY.includes('7') && !_this.state.takenFieldsX.includes('5')) {
           _this.makeAIMove(4);
+          _this.computerWins();
         } else if (_this.state.takenFieldsY.includes('5') && _this.state.takenFieldsY.includes('7') && !_this.state.takenFieldsX.includes('3')) {
           _this.makeAIMove(2);
+          _this.computerWins();
         } else {
           _this.checkDangerAI();
         }
@@ -9907,7 +9940,6 @@ document.addEventListener('DOMContentLoaded', function () {
         } else if (_this.state.takenFieldsX.includes('4') && _this.state.takenFieldsX.includes('7') && !_this.state.takenFieldsY.includes('1')) {
           _this.makeAIMove(0);
         } else if (!_this.state.takenFieldsY.includes('8') && _this.state.takenFieldsX.includes('2') && _this.state.takenFieldsX.includes('5')) {
-          console.log('ruszam');
           _this.makeAIMove(7);
         } else if (_this.state.takenFieldsX.includes('2') && _this.state.takenFieldsX.includes('8') && !_this.state.takenFieldsY.includes('5')) {
           _this.makeAIMove(4);
@@ -10037,6 +10069,7 @@ document.addEventListener('DOMContentLoaded', function () {
       }
       //zrobic metode ktora jesli ostatnio gracz/komputer sie pierwszy ruszal to teraz rusza sie pirwszy drugi gracz.
       // kiedy gracz zaczyna
+
 
       //niech gra sie zaczyna - 2 divy - graj pierwszy (obrazek) graj drugi(obrezaek) jeden pod drugim.
       // Jesli bedzie czas to dodac licznik. podzielic jakos plansze na czlowiek kontra komputer.
