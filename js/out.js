@@ -9809,11 +9809,28 @@ document.addEventListener('DOMContentLoaded', function () {
       };
 
       _this.endGame = function (winner) {
-        console.log(winner + ' wygral');
+        if (winner === 'human') {
+          var num = _this.state.humanPoints + 1;
+          _this.setState({
+            humanPoints: num
+          });
+          _this.stopAndReset();
+        } else {
+          console.log('komputer wygral');
+          var _num = _this.state.computerPoints + 1;
+          _this.setState({
+            computerPoints: _num
+          });
+          _this.stopAndReset();
+        }
       };
 
       _this.moveAI = function () {
         _this.checkWinAI();
+      };
+
+      _this.stopAndReset = function () {
+        console.log('restee');
       };
 
       _this.randomMove = function () {
@@ -9839,15 +9856,11 @@ document.addEventListener('DOMContentLoaded', function () {
       _this.checkDraw = function () {
         if (_this.state.moveNumber === 9) {
           console.log('remis');
+          _this.stopAndReset();
         } //pokaz przycisk restart, zatrzymaj gre, wywolaj metode endgame(remis, kazdy po punkcie)
       };
 
       _this.restartGame = function () {};
-
-      _this.endGame = function (winner) {
-        console.log(winner + 'wins');
-        //zatrzymaj cala gre, dodaj punkt, pokaz przycisk restart, pokaz animacje w miejscu gdzie trzeba zrobic animacje
-      };
 
       _this.checkWinAI = function () {
         if (_this.state.takenFieldsY.includes('1') && _this.state.takenFieldsY.includes('2') && !_this.state.takenFieldsX.includes('3')) {
@@ -10031,7 +10044,9 @@ document.addEventListener('DOMContentLoaded', function () {
         takenFieldsX: [],
         takenFieldsY: [],
         moveNumber: 0,
-        player: 'human'
+        player: 'human',
+        computerPoints: 0,
+        humanPoints: 0
       };
       return _this;
     }
@@ -10042,6 +10057,57 @@ document.addEventListener('DOMContentLoaded', function () {
         return _react2.default.createElement(
           'div',
           null,
+          _react2.default.createElement(
+            'div',
+            null,
+            _react2.default.createElement(
+              'div',
+              { className: 'header-container' },
+              _react2.default.createElement(
+                'div',
+                { className: 'game-title' },
+                _react2.default.createElement(
+                  'h1',
+                  null,
+                  'Tic Tac Toe 9000'
+                ),
+                ' '
+              )
+            ),
+            _react2.default.createElement(
+              'div',
+              { className: 'points-ai' },
+              ' ',
+              _react2.default.createElement(
+                'h3',
+                null,
+                'punkty uzytkownika ',
+                _react2.default.createElement(
+                  'span',
+                  null,
+                  this.state.humanPoints
+                )
+              ),
+              ' '
+            ),
+            _react2.default.createElement(
+              'div',
+              { className: 'points-human' },
+              ' ',
+              _react2.default.createElement(
+                'h3',
+                null,
+                'Punkty komputera ',
+                _react2.default.createElement(
+                  'span',
+                  null,
+                  this.state.computerPoints
+                )
+              ),
+              '  '
+            )
+          ),
+          this.props.children,
           _react2.default.createElement(
             'div',
             { className: 'game-container' },
@@ -10089,10 +10155,10 @@ document.addEventListener('DOMContentLoaded', function () {
       //dodaj tez do kazdego z tych warunkow to ze przy wygranej ukazuje sie animacja
 
       // akcja dla wygranej
+      //zatrzymaj cala gre, dodaj punkt, pokaz przycisk restart, pokaz animacje w miejscu gdzie trzeba zrobic animacje
 
 
       //tu bedzie caly ai
-
 
       //generator losowego ruchu
 
@@ -10105,62 +10171,23 @@ document.addEventListener('DOMContentLoaded', function () {
     return TicTacBoard;
   }(_react2.default.Component);
 
-  var Menu = function (_React$Component2) {
-    _inherits(Menu, _React$Component2);
+  var Intro = function (_React$Component2) {
+    _inherits(Intro, _React$Component2);
 
-    function Menu() {
-      _classCallCheck(this, Menu);
+    function Intro() {
+      _classCallCheck(this, Intro);
 
-      return _possibleConstructorReturn(this, (Menu.__proto__ || Object.getPrototypeOf(Menu)).apply(this, arguments));
+      return _possibleConstructorReturn(this, (Intro.__proto__ || Object.getPrototypeOf(Intro)).apply(this, arguments));
     }
 
-    _createClass(Menu, [{
+    _createClass(Intro, [{
       key: 'render',
       value: function render() {
-        return _react2.default.createElement(
-          'div',
-          null,
-          _react2.default.createElement(
-            'div',
-            { className: 'header-container' },
-            _react2.default.createElement(
-              'div',
-              { className: 'game-title' },
-              _react2.default.createElement(
-                'h1',
-                null,
-                'Tic Tac Toe 9000'
-              ),
-              ' '
-            )
-          ),
-          _react2.default.createElement(
-            'div',
-            { className: 'points-ai' },
-            ' ',
-            _react2.default.createElement(
-              'h3',
-              null,
-              'punkty uzytkownika'
-            ),
-            ' '
-          ),
-          _react2.default.createElement(
-            'div',
-            { className: 'points-human' },
-            ' ',
-            _react2.default.createElement(
-              'h3',
-              null,
-              'Punkty komputera '
-            ),
-            '  '
-          )
-        );
+        return _react2.default.createElement('div', { className: 'intro' });
       }
     }]);
 
-    return Menu;
+    return Intro;
   }(_react2.default.Component);
 
   var App = function (_React$Component3) {
@@ -10178,8 +10205,11 @@ document.addEventListener('DOMContentLoaded', function () {
         return _react2.default.createElement(
           'div',
           { className: 'main-container' },
-          _react2.default.createElement(Menu, null),
-          _react2.default.createElement(TicTacBoard, null)
+          _react2.default.createElement(
+            TicTacBoard,
+            null,
+            _react2.default.createElement(Intro, null)
+          )
         );
       }
     }]);

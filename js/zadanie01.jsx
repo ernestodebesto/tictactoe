@@ -21,14 +21,24 @@ document.addEventListener('DOMContentLoaded', function() {
         takenFieldsX: [],
         takenFieldsY: [],
         moveNumber: 0,
-        player: 'human'
+        player: 'human',
+        computerPoints: 0,
+        humanPoints: 0,
       }
     }
     render() {
       return (
         <div>
+          <div>
+            <div className='header-container'>
+              <div className='game-title'><h1>Tic Tac Toe 9000</h1> </div>
+              </div>
+              <div className='points-ai'> <h3>punkty uzytkownika <span>{this.state.humanPoints}</span></h3> </div>
+              <div className='points-human'> <h3>Punkty komputera <span>{this.state.computerPoints}</span></h3>  </div>
+            </div>
+          {this.props.children}
         <div className='game-container'>
-          <div className='row'>
+                    <div className='row'>
             <div data-tag='1' className={this.state.fieldOne + ' field'} id='fieldOne' onClick={this.makeMove}></div>
             <div data-tag='2' className={this.state.fieldTwo + ' field'} id='fieldTwo' onClick={this.makeMove}></div>
             <div data-tag='3' className={this.state.fieldThree + ' field'} id='fieldThree' onClick={this.makeMove}></div>
@@ -84,14 +94,32 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // akcja dla wygranej
     endGame = (winner) => {
-      console.log(winner + ' wygral');
-    }
+      if (winner === 'human'){
+        let num = this.state.humanPoints+1
+        this.setState({
+          humanPoints : num,
+        });
+        this.stopAndReset();
+      } else {
+        console.log('komputer wygral');
+        let num = this.state.computerPoints+1
+        this.setState({
+          computerPoints : num,
+        });
+        this.stopAndReset();
+      }
+    }      //zatrzymaj cala gre, dodaj punkt, pokaz przycisk restart, pokaz animacje w miejscu gdzie trzeba zrobic animacje
+
 
     //tu bedzie caly ai
     moveAI = () => {
       this.checkWinAI();
     }
 
+
+    stopAndReset = () => {
+      console.log('restee');
+    }
     //generator losowego ruchu
     randomMove = () => {
       let randomMove = Math.floor(Math.random() * 9);
@@ -118,14 +146,10 @@ document.addEventListener('DOMContentLoaded', function() {
     checkDraw = () => {
       if (this.state.moveNumber === 9) {
         console.log('remis');
+        this.stopAndReset();
       } //pokaz przycisk restart, zatrzymaj gre, wywolaj metode endgame(remis, kazdy po punkcie)
     }
     restartGame = () => {}
-
-    endGame = (winner) => {
-      console.log(winner + 'wins');
-      //zatrzymaj cala gre, dodaj punkt, pokaz przycisk restart, pokaz animacje w miejscu gdzie trzeba zrobic animacje
-    }
 
     checkWinAI = () => {
       if (this.state.takenFieldsY.includes('1') && this.state.takenFieldsY.includes('2') && !this.state.takenFieldsX.includes('3')) {
@@ -303,29 +327,19 @@ document.addEventListener('DOMContentLoaded', function() {
     }
   }
 
-  class Menu extends React.Component {
+  class Intro extends React.Component {
     render() {
-      return   <div>
-        <div className='header-container'>
-          <div className='game-title'><h1>Tic Tac Toe 9000</h1> </div>
-          </div>
-          <div className='points-ai'> <h3>punkty uzytkownika</h3> </div>
-          <div className='points-human'> <h3>Punkty komputera </h3>  </div>
-        </div>
-
-
+      return   <div className='intro'></div>
     }
   }
 
-
-
   class App extends React.Component {
     render() {
-      return <div className='main-container'>
-        <Menu />
-        <TicTacBoard/>
+      return   <div className='main-container'>
+        <TicTacBoard>
+          <Intro />
+      </TicTacBoard>
       </div>
-
     }
   }
 
