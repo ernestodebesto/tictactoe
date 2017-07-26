@@ -10041,10 +10041,10 @@ document.addEventListener('DOMContentLoaded', function () {
       value: function render() {
         return _react2.default.createElement(
           'div',
-          { className: 'main-container' },
+          null,
           _react2.default.createElement(
             'div',
-            { className: 'container-game' },
+            { className: 'game-container' },
             _react2.default.createElement(
               'div',
               { className: 'row' },
@@ -10065,15 +10065,15 @@ document.addEventListener('DOMContentLoaded', function () {
               _react2.default.createElement('div', { 'data-tag': '7', className: this.state.fieldSeven + ' field', id: 'fieldSeven', onClick: this.makeMove }),
               _react2.default.createElement('div', { 'data-tag': '8', className: this.state.fieldEight + ' field', id: 'fieldEight', onClick: this.makeMove }),
               _react2.default.createElement('div', { 'data-tag': '9', className: this.state.fieldNine + ' field', id: 'fieldNine', onClick: this.makeMove })
-            )
-          ),
-          _react2.default.createElement(
-            'div',
-            { className: 'buttons' },
+            ),
             _react2.default.createElement(
-              'button',
-              { onClick: this.moveAI },
-              ' Switch- SIdes'
+              'div',
+              { className: 'buttons' },
+              _react2.default.createElement(
+                'button',
+                { onClick: this.moveAI },
+                ' Switch- SIdes'
+              )
             )
           )
         );
@@ -10121,34 +10121,40 @@ document.addEventListener('DOMContentLoaded', function () {
           'div',
           null,
           _react2.default.createElement(
-            'h1',
-            null,
-            ' Tic Tac Toe 9000'
+            'div',
+            { className: 'header-container' },
+            _react2.default.createElement(
+              'div',
+              { className: 'game-title' },
+              _react2.default.createElement(
+                'h1',
+                null,
+                'Tic Tac Toe 9000'
+              ),
+              ' '
+            )
           ),
           _react2.default.createElement(
             'div',
-            { className: 'points-container' },
+            { className: 'points-ai' },
+            ' ',
             _react2.default.createElement(
-              'div',
+              'h3',
               null,
-              ' punkty uzytkownika: ',
-              _react2.default.createElement(
-                'span',
-                null,
-                '0'
-              )
+              'punkty uzytkownika'
             ),
+            ' '
+          ),
+          _react2.default.createElement(
+            'div',
+            { className: 'points-human' },
+            ' ',
             _react2.default.createElement(
-              'div',
+              'h3',
               null,
-              ' Punkty komputera: ',
-              _react2.default.createElement(
-                'span',
-                null,
-                '0'
-              ),
-              ' lorem'
-            )
+              'Punkty komputera '
+            ),
+            '  '
           )
         );
       }

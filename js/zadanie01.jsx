@@ -26,8 +26,8 @@ document.addEventListener('DOMContentLoaded', function() {
     }
     render() {
       return (
-        <div className='main-container'>
-        <div className='container-game'>
+        <div>
+        <div className='game-container'>
           <div className='row'>
             <div data-tag='1' className={this.state.fieldOne + ' field'} id='fieldOne' onClick={this.makeMove}></div>
             <div data-tag='2' className={this.state.fieldTwo + ' field'} id='fieldTwo' onClick={this.makeMove}></div>
@@ -43,9 +43,9 @@ document.addEventListener('DOMContentLoaded', function() {
             <div data-tag='8' className={this.state.fieldEight + ' field'} id='fieldEight' onClick={this.makeMove}></div>
             <div data-tag='9' className={this.state.fieldNine + ' field'} id='fieldNine' onClick={this.makeMove}></div>
           </div>
-          </div>
           <div className='buttons'>
             <button onClick={this.moveAI}> Switch- SIdes</button>
+          </div>
           </div>
           </div>
 
@@ -305,13 +305,14 @@ document.addEventListener('DOMContentLoaded', function() {
 
   class Menu extends React.Component {
     render() {
-      return <div>
-        <h1> Tic Tac Toe 9000</h1>
-        <div className='points-container'>
-        <div> punkty uzytkownika: <span>0</span></div>
-        <div> Punkty komputera: <span>0</span> lorem</div>
+      return   <div>
+        <div className='header-container'>
+          <div className='game-title'><h1>Tic Tac Toe 9000</h1> </div>
+          </div>
+          <div className='points-ai'> <h3>punkty uzytkownika</h3> </div>
+          <div className='points-human'> <h3>Punkty komputera </h3>  </div>
         </div>
-      </div>
+
 
     }
   }

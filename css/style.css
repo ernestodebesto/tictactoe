@@ -3,8 +3,8 @@
 }
 
 .field {
-  height: 125px;
-  width:125px;
+  height: 150px;
+  width:150px;
   border:1px solid black;
 }
 
@@ -19,33 +19,35 @@
 button {
   width: 100px;
   height: 50px;
-  margin: 100px;
+  margin: 30px;
 }
 
 .main-container {
   margin: 0 auto;
   width: 1000px;
   border: 1px solid black;
+}
+
+.game-container {
   display:flex;
   justify-content: space-between;
   align-items: center;
   flex-direction: column;
+  margin-top: 100px;
 }
 
-.points-container {
-  display:flex;
-  justify-content: space-around;
-  border: 1px solid black;
+.game-title {
+  text-align: center;
 }
-/*.buttons {
-  width: 700px;
-  height: 700px;
-  border:1px solid black;
-}*/
 
-/*.container {
-  width: 800px;
-  height: 800px;
-  border:1px solid black;
-3
-}*/
+.points-ai {
+  float:left;
+  margin-left:70px;
+  display: block;
+}
+
+.points-human {
+  float:right;
+  margin-right:70px;
+  display: block;
+}
