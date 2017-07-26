@@ -24,6 +24,7 @@ document.addEventListener('DOMContentLoaded', function() {
         player: 'human',
         computerPoints: 0,
         humanPoints: 0,
+        end : false
       }
     }
     render() {
@@ -86,18 +87,13 @@ document.addEventListener('DOMContentLoaded', function() {
       }
     }
 
-    //niech gra sie zaczyna - 2 divy - graj pierwszy (obrazek) graj drugi(obrezaek) jeden pod drugim.
-    // Jesli bedzie czas to dodac licznik. podzielic jakos plansze na czlowiek kontra komputer.
-
-    //jeden przycisk - zamien strony. kroy zaczyna dzialanie ai. dwa rodzaje buttonow - ludzki i komputerowy. i wtedy klasa x zawsze bedzie dla komputera i wyeliminuje to problem zmiany klas.
-    //dodaj tez do kazdego z tych warunkow to ze przy wygranej ukazuje sie animacja
-
     // akcja dla wygranej
     endGame = (winner) => {
       if (winner === 'human'){
         let num = this.state.humanPoints+1
         this.setState({
           humanPoints : num,
+          end : true
         });
         this.stopAndReset();
       } else {
@@ -105,6 +101,7 @@ document.addEventListener('DOMContentLoaded', function() {
         let num = this.state.computerPoints+1
         this.setState({
           computerPoints : num,
+          end : true,
         });
         this.stopAndReset();
       }
@@ -113,13 +110,20 @@ document.addEventListener('DOMContentLoaded', function() {
 
     //tu bedzie caly ai
     moveAI = () => {
+      if (this.state.end) {
+        console.log('koniec gry');
+      } else {
       this.checkWinAI();
+    }
     }
 
 
     stopAndReset = () => {
       console.log('restee');
     }
+
+
+
     //generator losowego ruchu
     randomMove = () => {
       let randomMove = Math.floor(Math.random() * 9);
@@ -146,7 +150,9 @@ document.addEventListener('DOMContentLoaded', function() {
     checkDraw = () => {
       if (this.state.moveNumber === 9) {
         console.log('remis');
-        this.stopAndReset();
+        this.setState({
+          end : true,
+        });
       } //pokaz przycisk restart, zatrzymaj gre, wywolaj metode endgame(remis, kazdy po punkcie)
     }
     restartGame = () => {}

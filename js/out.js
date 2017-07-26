@@ -9812,21 +9812,27 @@ document.addEventListener('DOMContentLoaded', function () {
         if (winner === 'human') {
           var num = _this.state.humanPoints + 1;
           _this.setState({
-            humanPoints: num
+            humanPoints: num,
+            end: true
           });
           _this.stopAndReset();
         } else {
           console.log('komputer wygral');
           var _num = _this.state.computerPoints + 1;
           _this.setState({
-            computerPoints: _num
+            computerPoints: _num,
+            end: true
           });
           _this.stopAndReset();
         }
       };
 
       _this.moveAI = function () {
-        _this.checkWinAI();
+        if (_this.state.end) {
+          console.log('koniec gry');
+        } else {
+          _this.checkWinAI();
+        }
       };
 
       _this.stopAndReset = function () {
@@ -9856,7 +9862,9 @@ document.addEventListener('DOMContentLoaded', function () {
       _this.checkDraw = function () {
         if (_this.state.moveNumber === 9) {
           console.log('remis');
-          _this.stopAndReset();
+          _this.setState({
+            end: true
+          });
         } //pokaz przycisk restart, zatrzymaj gre, wywolaj metode endgame(remis, kazdy po punkcie)
       };
 
@@ -10046,7 +10054,8 @@ document.addEventListener('DOMContentLoaded', function () {
         moveNumber: 0,
         player: 'human',
         computerPoints: 0,
-        humanPoints: 0
+        humanPoints: 0,
+        end: false
       };
       return _this;
     }
@@ -10148,17 +10157,12 @@ document.addEventListener('DOMContentLoaded', function () {
       // kiedy gracz zaczyna
 
 
-      //niech gra sie zaczyna - 2 divy - graj pierwszy (obrazek) graj drugi(obrezaek) jeden pod drugim.
-      // Jesli bedzie czas to dodac licznik. podzielic jakos plansze na czlowiek kontra komputer.
-
-      //jeden przycisk - zamien strony. kroy zaczyna dzialanie ai. dwa rodzaje buttonow - ludzki i komputerowy. i wtedy klasa x zawsze bedzie dla komputera i wyeliminuje to problem zmiany klas.
-      //dodaj tez do kazdego z tych warunkow to ze przy wygranej ukazuje sie animacja
-
       // akcja dla wygranej
       //zatrzymaj cala gre, dodaj punkt, pokaz przycisk restart, pokaz animacje w miejscu gdzie trzeba zrobic animacje
 
 
       //tu bedzie caly ai
+
 
       //generator losowego ruchu
 
