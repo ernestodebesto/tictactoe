@@ -9777,6 +9777,9 @@ document.addEventListener('DOMContentLoaded', function () {
   var TicTacBoard = function (_React$Component) {
     _inherits(TicTacBoard, _React$Component);
 
+    //zrobic wejsciowy stan gry   const entrySetup = [0]
+    //zrobic rowniez cos zeby nie wywalalo bledu kiedy czlowiek robi ostatni ruch na planszy i  ai nie ma gdzie sie ruszyc
+
     function TicTacBoard(props) {
       _classCallCheck(this, TicTacBoard);
 
@@ -9784,13 +9787,17 @@ document.addEventListener('DOMContentLoaded', function () {
 
       _this.makeMove = function (e) {
         if (e.currentTarget.className === 'y field' || e.currentTarget.className === 'x field') {
-          console.log('zajete');
+          console.log('zajete'); //byc moze trzeba bedzie zmodyfikowac te metode jesli do stylowania uzyjemy klas
         } else {
           var _this$setState;
 
           var arr = _this.state.takenFieldsX.slice();
+          var num = parseInt(_this.state.moveNumber) + 1;
           arr.push(e.target.getAttribute('data-tag'));
-          _this.setState((_this$setState = {}, _defineProperty(_this$setState, e.currentTarget.id, 'x'), _defineProperty(_this$setState, 'takenFieldsX', arr), _this$setState), function () {
+          _this.setState((_this$setState = {
+            moveNumber: num
+          }, _defineProperty(_this$setState, e.currentTarget.id, 'x'), _defineProperty(_this$setState, 'takenFieldsX', arr), _this$setState), function () {
+            _this.checkDraw();
             _this.checkStatusPlayer();
           });
 
@@ -9823,90 +9830,98 @@ document.addEventListener('DOMContentLoaded', function () {
 
         var arr = _this.state.takenFieldsY.slice();
         arr.push($('.field').eq(destination).attr('data-tag'));
-        _this.setState((_this$setState2 = {}, _defineProperty(_this$setState2, $('.field').eq(destination).attr('id'), 'y'), _defineProperty(_this$setState2, 'takenFieldsY', arr), _this$setState2), function () {
-          _this.checkStatusComputer();
+        var num = _this.state.moveNumber + 1;
+        _this.setState((_this$setState2 = {}, _defineProperty(_this$setState2, $('.field').eq(destination).attr('id'), 'y'), _defineProperty(_this$setState2, 'takenFieldsY', arr), _defineProperty(_this$setState2, 'moveNumber', num), _this$setState2), function () {
+          _this.checkDraw();
         });
       };
 
-      _this.checkDraw = function () {};
+      _this.checkDraw = function () {
+        if (_this.state.moveNumber === 9) {
+          console.log('remis');
+        } //pokaz przycisk restart, zatrzymaj gre, wywolaj metode endgame(remis, kazdy po punkcie)
+      };
 
-      _this.computerWins = function () {
-        console.log('computer wins');
+      _this.restartGame = function () {};
+
+      _this.endGame = function (winner) {
+        console.log(winner + 'wins');
+        //zatrzymaj cala gre, dodaj punkt, pokaz przycisk restart, pokaz animacje w miejscu gdzie trzeba zrobic animacje
       };
 
       _this.checkWinAI = function () {
         if (_this.state.takenFieldsY.includes('1') && _this.state.takenFieldsY.includes('2') && !_this.state.takenFieldsX.includes('3')) {
           _this.makeAIMove(2);
-          _this.computerWins();
+          _this.endGame('computer');
         } else if (_this.state.takenFieldsY.includes('1') && _this.state.takenFieldsY.includes('3') && !_this.state.takenFieldsX.includes('2')) {
           _this.makeAIMove(1);
-          _this.computerWins();
+          _this.endGame('computer');
         } else if (_this.state.takenFieldsY.includes('2') && _this.state.takenFieldsY.includes('3') && !_this.state.takenFieldsX.includes('1')) {
           _this.makeAIMove(0);
-          _this.computerWins();
+          _this.endGame('computer');
         } else if (_this.state.takenFieldsY.includes('4') && _this.state.takenFieldsY.includes('5') && !_this.state.takenFieldsX.includes('6')) {
           _this.makeAIMove(5);
-          _this.computerWins();
+          _this.endGame('computer');
         } else if (_this.state.takenFieldsY.includes('4') && _this.state.takenFieldsY.includes('6') && !_this.state.takenFieldsX.includes('5')) {
           _this.makeAIMove(4);
-          _this.computerWins();
+          _this.endGame('computer');
         } else if (_this.state.takenFieldsY.includes('5') && _this.state.takenFieldsY.includes('6') && !_this.state.takenFieldsX.includes('4')) {
           _this.makeAIMove(3);
-          _this.computerWins();
+          _this.endGame('computer');
         } else if (_this.state.takenFieldsY.includes('7') && _this.state.takenFieldsY.includes('8') && !_this.state.takenFieldsX.includes('9')) {
           _this.makeAIMove(8);
-          _this.computerWins();
+          _this.endGame('computer');
         } else if (_this.state.takenFieldsY.includes('7') && _this.state.takenFieldsY.includes('9') && !_this.state.takenFieldsX.includes('8')) {
           _this.makeAIMove(7);
-          _this.computerWins();
+          _this.endGame('computer');
         } else if (_this.state.takenFieldsY.includes('8') && _this.state.takenFieldsY.includes('9') && !_this.state.takenFieldsX.includes('7')) {
           _this.makeAIMove(6);
-          _this.computerWins();
+          _this.endGame('computer');
         } else if (_this.state.takenFieldsY.includes('1') && _this.state.takenFieldsY.includes('4') && !_this.state.takenFieldsX.includes('7')) {
           _this.makeAIMove(6);
-          _this.computerWins();
+          _this.endGame('computer');
         } else if (_this.state.takenFieldsY.includes('1') && _this.state.takenFieldsY.includes('7') && !_this.state.takenFieldsX.includes('4')) {
           _this.makeAIMove(3);
-          _this.computerWins();
+          _this.endGame('computer');
         } else if (_this.state.takenFieldsY.includes('4') && _this.state.takenFieldsY.includes('7') && !_this.state.takenFieldsX.includes('1')) {
           _this.makeAIMove(0);
-          _this.computerWins();
+          _this.endGame('computer');
         } else if (!_this.state.takenFieldsX.includes('8') && _this.state.takenFieldsY.includes('2') && _this.state.takenFieldsY.includes('5')) {
           _this.makeAIMove(7);
-          _this.computerWins();
+          _this.endGame('computer');
         } else if (_this.state.takenFieldsY.includes('2') && _this.state.takenFieldsY.includes('8') && !_this.state.takenFieldsX.includes('5')) {
           _this.makeAIMove(4);
-          _this.computerWins();
+          _this.endGame('computer');
         } else if (_this.state.takenFieldsY.includes('5') && _this.state.takenFieldsY.includes('8') && !_this.state.takenFieldsX.includes('2')) {
           _this.makeAIMove(1);
-          _this.computerWins();
+          _this.endGame('computer');
         } else if (_this.state.takenFieldsY.includes('3') && _this.state.takenFieldsY.includes('6') && !_this.state.takenFieldsX.includes('9')) {
           _this.makeAIMove(8);
-          _this.computerWins();
+          _this.endGame('computer');
         } else if (_this.state.takenFieldsY.includes('3') && _this.state.takenFieldsY.includes('9') && !_this.state.takenFieldsX.includes('6')) {
           _this.makeAIMove(5);
-          _this.computerWins();
+          _this.endGame('computer');
         } else if (_this.state.takenFieldsY.includes('6') && _this.state.takenFieldsY.includes('9') && !_this.state.takenFieldsX.includes('3')) {
           _this.makeAIMove(2);
-          _this.computerWins();
+          _this.endGame('computer');
         } else if (_this.state.takenFieldsY.includes('1') && _this.state.takenFieldsY.includes('5') && !_this.state.takenFieldsX.includes('9')) {
           _this.makeAIMove(8);
-          _this.computerWins();
+          _this.endGame('computer');
         } else if (_this.state.takenFieldsY.includes('5') && _this.state.takenFieldsY.includes('9') && !_this.state.takenFieldsX.includes('1')) {
           _this.makeAIMove(0);
-          _this.computerWins();
+          _this.endGame('computer');
         } else if (_this.state.takenFieldsY.includes('1') && _this.state.takenFieldsY.includes('9') && !_this.state.takenFieldsX.includes('5')) {
           _this.makeAIMove(4);
-          _this.computerWins();
+          _this.endGame('computer');
         } else if (_this.state.takenFieldsY.includes('3') && _this.state.takenFieldsY.includes('5') && !_this.state.takenFieldsX.includes('7')) {
           _this.makeAIMove(6);
-          _this.computerWins();
+          _this.endGame('computer');
         } else if (_this.state.takenFieldsY.includes('3') && _this.state.takenFieldsY.includes('7') && !_this.state.takenFieldsX.includes('5')) {
           _this.makeAIMove(4);
-          _this.computerWins();
+          _this.endGame('computer');
         } else if (_this.state.takenFieldsY.includes('5') && _this.state.takenFieldsY.includes('7') && !_this.state.takenFieldsX.includes('3')) {
           _this.makeAIMove(2);
-          _this.computerWins();
+          _this.endGame('computer');
         } else {
           _this.checkDangerAI();
         }
@@ -9971,54 +9986,35 @@ document.addEventListener('DOMContentLoaded', function () {
       _this.checkStatusPlayer = function () {
         if (_this.state.takenFieldsX.includes('1') && _this.state.takenFieldsX.includes('2') && _this.state.takenFieldsX.includes('3')) {
           console.log('123');
+          _this.endGame('human');
         }
         if (_this.state.takenFieldsX.includes('4') && _this.state.takenFieldsX.includes('5') && _this.state.takenFieldsX.includes('6')) {
           console.log('456');
+          _this.endGame('human');
         }
         if (_this.state.takenFieldsX.includes('7') && _this.state.takenFieldsX.includes('8') && _this.state.takenFieldsX.includes('9')) {
           console.log('789');
+          _this.endGame('human');
         }
         if (_this.state.takenFieldsX.includes('1') && _this.state.takenFieldsX.includes('4') && _this.state.takenFieldsX.includes('7')) {
           console.log('147');
+          _this.endGame('human');
         }
         if (_this.state.takenFieldsX.includes('2') && _this.state.takenFieldsX.includes('5') && _this.state.takenFieldsX.includes('8')) {
           console.log('258');
+          _this.endGame('human');
         }
         if (_this.state.takenFieldsX.includes('3') && _this.state.takenFieldsX.includes('6') && _this.state.takenFieldsX.includes('9')) {
           console.log('369');
+          _this.endGame('human');
         }
         if (_this.state.takenFieldsX.includes('1') && _this.state.takenFieldsX.includes('5') && _this.state.takenFieldsX.includes('9')) {
           console.log('159');
+          _this.endGame('human');
         }
         if (_this.state.takenFieldsX.includes('7') && _this.state.takenFieldsX.includes('5') && _this.state.takenFieldsX.includes('3')) {
           console.log('753');
-        }
-      };
-
-      _this.checkStatusComputer = function () {
-        if (_this.state.takenFieldsY.includes('1') && _this.state.takenFieldsY.includes('2') && _this.state.takenFieldsY.includes('3')) {
-          console.log('123');
-        }
-        if (_this.state.takenFieldsY.includes('4') && _this.state.takenFieldsY.includes('5') && _this.state.takenFieldsY.includes('6')) {
-          console.log('456');
-        }
-        if (_this.state.takenFieldsY.includes('7') && _this.state.takenFieldsY.includes('8') && _this.state.takenFieldsY.includes('9')) {
-          console.log('789');
-        }
-        if (_this.state.takenFieldsY.includes('1') && _this.state.takenFieldsY.includes('4') && _this.state.takenFieldsY.includes('7')) {
-          console.log('147');
-        }
-        if (_this.state.takenFieldsY.includes('2') && _this.state.takenFieldsY.includes('5') && _this.state.takenFieldsY.includes('8')) {
-          console.log('258');
-        }
-        if (_this.state.takenFieldsY.includes('3') && _this.state.takenFieldsY.includes('6') && _this.state.takenFieldsY.includes('9')) {
-          console.log('369');
-        }
-        if (_this.state.takenFieldsY.includes('1') && _this.state.takenFieldsY.includes('5') && _this.state.takenFieldsY.includes('9')) {
-          console.log('159');
-        }
-        if (_this.state.takenFieldsY.includes('7') && _this.state.takenFieldsY.includes('5') && _this.state.takenFieldsY.includes('3')) {
-          console.log('753');
+          _this.endGame('human');
         }
       };
 
@@ -10033,7 +10029,9 @@ document.addEventListener('DOMContentLoaded', function () {
         fieldEight: '',
         fieldNine: '',
         takenFieldsX: [],
-        takenFieldsY: []
+        takenFieldsY: [],
+        moveNumber: 0,
+        player: 'human'
       };
       return _this;
     }
@@ -10043,27 +10041,40 @@ document.addEventListener('DOMContentLoaded', function () {
       value: function render() {
         return _react2.default.createElement(
           'div',
-          { className: 'container' },
+          { className: 'main-container' },
           _react2.default.createElement(
             'div',
-            { className: 'row' },
-            _react2.default.createElement('div', { 'data-tag': '1', className: this.state.fieldOne + ' field', id: 'fieldOne', onClick: this.makeMove }),
-            _react2.default.createElement('div', { 'data-tag': '2', className: this.state.fieldTwo + ' field', id: 'fieldTwo', onClick: this.makeMove }),
-            _react2.default.createElement('div', { 'data-tag': '3', className: this.state.fieldThree + ' field', id: 'fieldThree', onClick: this.makeMove })
+            { className: 'container-game' },
+            _react2.default.createElement(
+              'div',
+              { className: 'row' },
+              _react2.default.createElement('div', { 'data-tag': '1', className: this.state.fieldOne + ' field', id: 'fieldOne', onClick: this.makeMove }),
+              _react2.default.createElement('div', { 'data-tag': '2', className: this.state.fieldTwo + ' field', id: 'fieldTwo', onClick: this.makeMove }),
+              _react2.default.createElement('div', { 'data-tag': '3', className: this.state.fieldThree + ' field', id: 'fieldThree', onClick: this.makeMove })
+            ),
+            _react2.default.createElement(
+              'div',
+              { className: 'row' },
+              _react2.default.createElement('div', { 'data-tag': '4', className: this.state.fieldFour + ' field', id: 'fieldFour', onClick: this.makeMove }),
+              _react2.default.createElement('div', { 'data-tag': '5', className: this.state.fieldFive + ' field', id: 'fieldFive', onClick: this.makeMove }),
+              _react2.default.createElement('div', { 'data-tag': '6', className: this.state.fieldSix + ' field', id: 'fieldSix', onClick: this.makeMove })
+            ),
+            _react2.default.createElement(
+              'div',
+              { className: 'row' },
+              _react2.default.createElement('div', { 'data-tag': '7', className: this.state.fieldSeven + ' field', id: 'fieldSeven', onClick: this.makeMove }),
+              _react2.default.createElement('div', { 'data-tag': '8', className: this.state.fieldEight + ' field', id: 'fieldEight', onClick: this.makeMove }),
+              _react2.default.createElement('div', { 'data-tag': '9', className: this.state.fieldNine + ' field', id: 'fieldNine', onClick: this.makeMove })
+            )
           ),
           _react2.default.createElement(
             'div',
-            { className: 'row' },
-            _react2.default.createElement('div', { 'data-tag': '4', className: this.state.fieldFour + ' field', id: 'fieldFour', onClick: this.makeMove }),
-            _react2.default.createElement('div', { 'data-tag': '5', className: this.state.fieldFive + ' field', id: 'fieldFive', onClick: this.makeMove }),
-            _react2.default.createElement('div', { 'data-tag': '6', className: this.state.fieldSix + ' field', id: 'fieldSix', onClick: this.makeMove })
-          ),
-          _react2.default.createElement(
-            'div',
-            { className: 'row' },
-            _react2.default.createElement('div', { 'data-tag': '7', className: this.state.fieldSeven + ' field', id: 'fieldSeven', onClick: this.makeMove }),
-            _react2.default.createElement('div', { 'data-tag': '8', className: this.state.fieldEight + ' field', id: 'fieldEight', onClick: this.makeMove }),
-            _react2.default.createElement('div', { 'data-tag': '9', className: this.state.fieldNine + ' field', id: 'fieldNine', onClick: this.makeMove })
+            { className: 'buttons' },
+            _react2.default.createElement(
+              'button',
+              { onClick: this.moveAI },
+              ' Switch- SIdes'
+            )
           )
         );
       }
@@ -10075,7 +10086,6 @@ document.addEventListener('DOMContentLoaded', function () {
       // Jesli bedzie czas to dodac licznik. podzielic jakos plansze na czlowiek kontra komputer.
 
       //jeden przycisk - zamien strony. kroy zaczyna dzialanie ai. dwa rodzaje buttonow - ludzki i komputerowy. i wtedy klasa x zawsze bedzie dla komputera i wyeliminuje to problem zmiany klas.
-      //SPRAWDZA CZY GRACZ WYGRAL. dodaj to po kazdym ruchu zarowno czlowieka jak i maszyny. wyswietl jakiegos diva z napisem this.state.winner. tutaj tez ta metoda wygranej powinna wrzucac rzecy do licznika.  - dodaj- > sprawdza czy jest remis. albo te metode wrzuc jako warunek przed wykonaniem ai ruchu
       //dodaj tez do kazdego z tych warunkow to ze przy wygranej ukazuje sie animacja
 
       // akcja dla wygranej
@@ -10083,10 +10093,10 @@ document.addEventListener('DOMContentLoaded', function () {
 
       //tu bedzie caly ai
 
-      //potrzebna metoda do wywolywania konca gry
 
+      //generator losowego ruchu
 
-      //generator losowego ruchu - > ZROB !!! generator do gry w ktorej zaczyna komputer - ai pojawia sie w losowym rogu. potem drugi ruch(jesli czlowiek tma nie stoi to w przecwileglym rogu). przy trzecim ruchu sprawdzic czy jest danger. potem nastepny ruch ze scenariusza.
+      //sprawdz remis
 
       //zanim sprawdzi checkdanger zrob metode canIWIN
 
@@ -10095,36 +10105,56 @@ document.addEventListener('DOMContentLoaded', function () {
     return TicTacBoard;
   }(_react2.default.Component);
 
-  var ChooseSide = function (_React$Component2) {
-    _inherits(ChooseSide, _React$Component2);
+  var Menu = function (_React$Component2) {
+    _inherits(Menu, _React$Component2);
 
-    function ChooseSide() {
-      _classCallCheck(this, ChooseSide);
+    function Menu() {
+      _classCallCheck(this, Menu);
 
-      return _possibleConstructorReturn(this, (ChooseSide.__proto__ || Object.getPrototypeOf(ChooseSide)).apply(this, arguments));
+      return _possibleConstructorReturn(this, (Menu.__proto__ || Object.getPrototypeOf(Menu)).apply(this, arguments));
     }
 
-    _createClass(ChooseSide, [{
+    _createClass(Menu, [{
       key: 'render',
       value: function render() {
         return _react2.default.createElement(
           'div',
-          { className: 'buttons' },
+          null,
           _react2.default.createElement(
-            'button',
-            { onClick: this.moveAI },
-            ' tutaj zrob specjalna metode ktora potem wywolasz bedziesz chcial zeby komputer ruszyl sie pierwszy, dwie strategie - jesli czlowiek pierwszy to strategia blokowania, jesli komputer pierwszy to strategia wygrywania, jesli komputer sie ruszy pierwszy to i tak poiwnien za kazdym razem wywolywac metode pozwalajaca mu na sprawdzenie czy nie ma niebezpieczenstwa moze wogole zawsze komputer jest pierwszy i gra rozpoczyna sie przyciskiem start krzyszyz'
+            'h1',
+            null,
+            ' Tic Tac Toe 9000'
           ),
           _react2.default.createElement(
-            'button',
-            null,
-            'kolkoko'
+            'div',
+            { className: 'points-container' },
+            _react2.default.createElement(
+              'div',
+              null,
+              ' punkty uzytkownika: ',
+              _react2.default.createElement(
+                'span',
+                null,
+                '0'
+              )
+            ),
+            _react2.default.createElement(
+              'div',
+              null,
+              ' Punkty komputera: ',
+              _react2.default.createElement(
+                'span',
+                null,
+                '0'
+              ),
+              ' lorem'
+            )
           )
         );
       }
     }]);
 
-    return ChooseSide;
+    return Menu;
   }(_react2.default.Component);
 
   var App = function (_React$Component3) {
@@ -10141,9 +10171,9 @@ document.addEventListener('DOMContentLoaded', function () {
       value: function render() {
         return _react2.default.createElement(
           'div',
-          null,
-          _react2.default.createElement(TicTacBoard, null),
-          _react2.default.createElement(ChooseSide, null)
+          { className: 'main-container' },
+          _react2.default.createElement(Menu, null),
+          _react2.default.createElement(TicTacBoard, null)
         );
       }
     }]);
