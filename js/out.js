@@ -9814,7 +9814,6 @@ document.addEventListener('DOMContentLoaded', function () {
             humanPoints: num,
             end: true
           });
-          _this.stopAndReset();
         } else {
           console.log('komputer wygral');
           var _num = _this.state.computerPoints + 1;
@@ -9822,7 +9821,6 @@ document.addEventListener('DOMContentLoaded', function () {
             computerPoints: _num,
             end: true
           });
-          _this.stopAndReset();
         }
       };
 
@@ -9835,8 +9833,33 @@ document.addEventListener('DOMContentLoaded', function () {
       };
 
       _this.stopAndReset = function () {
-        console.log($('.field'));
-        $('.field').forEach(function (field) {});
+        _this.setState({
+          fieldOne: '',
+          fieldTwo: '',
+          fieldThree: '',
+          fieldFour: '',
+          fieldFive: '',
+          fieldSix: '',
+          fieldSeven: '',
+          fieldEight: '',
+          fieldNine: '',
+          takenFieldsX: [],
+          takenFieldsY: [],
+          moveNumber: 0,
+          end: false
+        });
+
+        if (_this.state.player === 'human') {
+          _this.setState({
+            player: 'computer'
+          }, function () {
+            return _this.moveAI();
+          });
+        } else {
+          _this.setState({
+            player: 'human'
+          });
+        }
       };
 
       _this.randomMove = function () {

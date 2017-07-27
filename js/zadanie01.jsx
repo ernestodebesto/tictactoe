@@ -95,7 +95,6 @@ document.addEventListener('DOMContentLoaded', function() {
           humanPoints : num,
           end : true
         });
-        this.stopAndReset();
       } else {
         console.log('komputer wygral');
         let num = this.state.computerPoints+1
@@ -103,7 +102,6 @@ document.addEventListener('DOMContentLoaded', function() {
           computerPoints : num,
           end : true,
         });
-        this.stopAndReset();
       }
     }      //zatrzymaj cala gre, dodaj punkt, pokaz przycisk restart, pokaz animacje w miejscu gdzie trzeba zrobic animacje
 
@@ -119,13 +117,34 @@ document.addEventListener('DOMContentLoaded', function() {
 
 
     stopAndReset = () => {
-      console.log($('.field'));
-      $('.field').forEach(field => {
+      this.setState({
+      fieldOne: '',
+      fieldTwo: '',
+      fieldThree: '',
+      fieldFour: '',
+      fieldFive: '',
+      fieldSix: '',
+      fieldSeven: '',
+      fieldEight: '',
+      fieldNine: '',
+      takenFieldsX: [],
+      takenFieldsY: [],
+      moveNumber: 0,
+      end : false
+    });
 
-      })
+      if (this.state.player === 'human'){
+        this.setState({
+          player : 'computer'
+        }, () => this.moveAI())
+
+      } else {
+        this.setState({
+          player : 'human'
+        })
+      }
     }
-
-
+  
 
     //generator losowego ruchu
     randomMove = () => {
