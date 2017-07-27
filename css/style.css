@@ -55,7 +55,6 @@ button {
   height: 1000px;
   position: absolute;
   z-index: 1;
-  visibility: hidden;
 }
 
 .points-human {

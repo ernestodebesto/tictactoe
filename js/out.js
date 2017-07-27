@@ -9772,12 +9772,9 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-var entryState = [];
 document.addEventListener('DOMContentLoaded', function () {
   var TicTacBoard = function (_React$Component) {
     _inherits(TicTacBoard, _React$Component);
-
-    //zrobic wejsciowy stan gry   const entrySetup = [0]
 
     function TicTacBoard(props) {
       _classCallCheck(this, TicTacBoard);
@@ -9798,12 +9795,10 @@ document.addEventListener('DOMContentLoaded', function () {
           }, _defineProperty(_this$setState, e.currentTarget.id, 'x'), _defineProperty(_this$setState, 'takenFieldsX', arr), _this$setState), function () {
             _this.checkDraw();
             _this.checkStatusPlayer();
+            _this.moveAI();
           });
-
           //  console.log($('.field[data-tag=1]') )
           //  console.log($('.field[data-tag=1]').attr('data-tag'));
-
-          setTimeout(_this.moveAI, 150); //przenies do callbacku
         }
       };
 
@@ -9815,7 +9810,6 @@ document.addEventListener('DOMContentLoaded', function () {
             end: true
           });
         } else {
-          console.log('komputer wygral');
           var _num = _this.state.computerPoints + 1;
           _this.setState({
             computerPoints: _num,
@@ -9828,7 +9822,7 @@ document.addEventListener('DOMContentLoaded', function () {
         if (_this.state.end) {
           console.log('koniec gry');
         } else {
-          _this.checkWinAI();
+          setTimeout(_this.checkWinAI, 400);
         }
       };
 
@@ -9884,14 +9878,11 @@ document.addEventListener('DOMContentLoaded', function () {
 
       _this.checkDraw = function () {
         if (_this.state.moveNumber === 9) {
-          console.log('remis');
           _this.setState({
             end: true
           });
         } //pokaz przycisk restart, zatrzymaj gre, wywolaj metode endgame(remis, kazdy po punkcie)
       };
-
-      _this.restartGame = function () {};
 
       _this.checkWinAI = function () {
         if (_this.state.takenFieldsY.includes('1') && _this.state.takenFieldsY.includes('2') && !_this.state.takenFieldsX.includes('3')) {
@@ -10075,14 +10066,13 @@ document.addEventListener('DOMContentLoaded', function () {
         takenFieldsX: [],
         takenFieldsY: [],
         moveNumber: 0,
-        player: 'human',
+        player: 'computer',
         computerPoints: 0,
         humanPoints: 0,
         end: false
       };
       return _this;
-    } //dodac cyrkulacje - gracz- ai
-
+    }
 
     _createClass(TicTacBoard, [{
       key: 'render',
@@ -10090,6 +10080,7 @@ document.addEventListener('DOMContentLoaded', function () {
         return _react2.default.createElement(
           'div',
           null,
+          _react2.default.createElement(Intro, { onStart: this.moveAI }),
           _react2.default.createElement(
             'div',
             null,
@@ -10140,7 +10131,6 @@ document.addEventListener('DOMContentLoaded', function () {
               '  '
             )
           ),
-          this.props.children,
           _react2.default.createElement(
             'div',
             { className: 'game-container' },
@@ -10168,11 +10158,6 @@ document.addEventListener('DOMContentLoaded', function () {
             _react2.default.createElement(
               'div',
               { className: 'buttons' },
-              _react2.default.createElement(
-                'button',
-                { onClick: this.moveAI },
-                ' Switch- SIdes'
-              ),
               _react2.default.createElement(
                 'button',
                 { onClick: this.stopAndReset },
@@ -10208,15 +10193,35 @@ document.addEventListener('DOMContentLoaded', function () {
     _inherits(Intro, _React$Component2);
 
     function Intro() {
+      var _ref;
+
+      var _temp, _this2, _ret;
+
       _classCallCheck(this, Intro);
 
-      return _possibleConstructorReturn(this, (Intro.__proto__ || Object.getPrototypeOf(Intro)).apply(this, arguments));
+      for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
+        args[_key] = arguments[_key];
+      }
+
+      return _ret = (_temp = (_this2 = _possibleConstructorReturn(this, (_ref = Intro.__proto__ || Object.getPrototypeOf(Intro)).call.apply(_ref, [this].concat(args))), _this2), _this2.handleStartClick = function () {
+        if (typeof _this2.props.onStart === 'function') {
+          _this2.props.onStart();
+        }
+      }, _temp), _possibleConstructorReturn(_this2, _ret);
     }
 
     _createClass(Intro, [{
       key: 'render',
       value: function render() {
-        return _react2.default.createElement('div', { className: 'intro' });
+        return _react2.default.createElement(
+          'div',
+          { className: 'intro' },
+          _react2.default.createElement(
+            'button',
+            { onClick: this.handleStartClick },
+            'START'
+          )
+        );
       }
     }]);
 
@@ -10238,11 +10243,7 @@ document.addEventListener('DOMContentLoaded', function () {
         return _react2.default.createElement(
           'div',
           { className: 'main-container' },
-          _react2.default.createElement(
-            TicTacBoard,
-            null,
-            _react2.default.createElement(Intro, null)
-          )
+          _react2.default.createElement(TicTacBoard, null)
         );
       }
     }]);

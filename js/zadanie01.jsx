@@ -1,10 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-const entryState = []
 document.addEventListener('DOMContentLoaded', function() {
   class TicTacBoard extends React.Component {
-  //zrobic wejsciowy stan gry   const entrySetup = [0]
-
     constructor(props) {
       super(props);
       this.state = {
@@ -20,15 +17,16 @@ document.addEventListener('DOMContentLoaded', function() {
         takenFieldsX: [],
         takenFieldsY: [],
         moveNumber: 0,
-        player: 'human',
+        player: 'computer',
         computerPoints: 0,
         humanPoints: 0,
         end : false
       }
-    } //dodac cyrkulacje - gracz- ai
+    }
     render() {
       return (
         <div>
+          <Intro onStart={this.moveAI}/>
           <div>
             <div className='header-container'>
               <div className='game-title'><h1>Tic Tac Toe 9000</h1> </div>
@@ -36,7 +34,6 @@ document.addEventListener('DOMContentLoaded', function() {
               <div className='points-ai'> <h3>punkty uzytkownika <span>{this.state.humanPoints}</span></h3> </div>
               <div className='points-human'> <h3>Punkty komputera <span>{this.state.computerPoints}</span></h3>  </div>
             </div>
-          {this.props.children}
         <div className='game-container'>
                     <div className='row'>
             <div data-tag='1' className={this.state.fieldOne + ' field'} id='fieldOne' onClick={this.makeMove}></div>
@@ -54,7 +51,6 @@ document.addEventListener('DOMContentLoaded', function() {
             <div data-tag='9' className={this.state.fieldNine + ' field'} id='fieldNine' onClick={this.makeMove}></div>
           </div>
           <div className='buttons'>
-            <button onClick={this.moveAI}> Switch- SIdes</button>
             <button onClick={this.stopAndReset}> Zacznij jeszcze raz </button>
           </div>
           </div>
@@ -78,14 +74,14 @@ document.addEventListener('DOMContentLoaded', function() {
         }, () => {
           this.checkDraw();
           this.checkStatusPlayer();
+          this.moveAI();
         })
-
         //  console.log($('.field[data-tag=1]') )
         //  console.log($('.field[data-tag=1]').attr('data-tag'));
-
-        setTimeout(this.moveAI, 150); //przenies do callbacku
       }
     }
+
+
 
     // akcja dla wygranej
     endGame = (winner) => {
@@ -96,7 +92,6 @@ document.addEventListener('DOMContentLoaded', function() {
           end : true
         });
       } else {
-        console.log('komputer wygral');
         let num = this.state.computerPoints+1
         this.setState({
           computerPoints : num,
@@ -111,7 +106,7 @@ document.addEventListener('DOMContentLoaded', function() {
       if (this.state.end) {
         console.log('koniec gry');
       } else {
-      this.checkWinAI();
+      setTimeout(this.checkWinAI, 400)
     }
     }
 
@@ -137,14 +132,13 @@ document.addEventListener('DOMContentLoaded', function() {
         this.setState({
           player : 'computer'
         }, () => this.moveAI())
-
       } else {
         this.setState({
           player : 'human'
         })
       }
     }
-  
+
 
     //generator losowego ruchu
     randomMove = () => {
@@ -171,13 +165,11 @@ document.addEventListener('DOMContentLoaded', function() {
     //sprawdz remis
     checkDraw = () => {
       if (this.state.moveNumber === 9) {
-        console.log('remis');
         this.setState({
           end : true,
         });
       } //pokaz przycisk restart, zatrzymaj gre, wywolaj metode endgame(remis, kazdy po punkcie)
     }
-    restartGame = () => {}
 
     checkWinAI = () => {
       if (this.state.takenFieldsY.includes('1') && this.state.takenFieldsY.includes('2') && !this.state.takenFieldsX.includes('3')) {
@@ -356,17 +348,24 @@ document.addEventListener('DOMContentLoaded', function() {
   }
 
   class Intro extends React.Component {
-    render() {
-      return   <div className='intro'></div>
+    handleStartClick = () => {
+      if ( typeof this.props.onStart === 'function' ){
+          this.props.onStart();
+      }
+    }
+     render() {
+      return   <div className='intro'>
+        <button onClick={this.handleStartClick}>
+          START
+        </button>
+      </div>
     }
   }
 
   class App extends React.Component {
     render() {
       return   <div className='main-container'>
-        <TicTacBoard>
-          <Intro />
-      </TicTacBoard>
+        <TicTacBoard />
       </div>
     }
   }
