@@ -10149,7 +10149,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 _react2.default.createElement(
                   'button',
                   { onClick: this.stopAndReset, className: 'restart-btn' },
-                  'Zacznij jeszcze raz'
+                  'REMATCH'
                 )
               )
             )

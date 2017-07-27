@@ -61,7 +61,7 @@ document.addEventListener('DOMContentLoaded', function() {
             </div>
             <div className='buttons'>
               <button onClick={this.stopAndReset} className='restart-btn'>
-                Zacznij jeszcze raz
+                REMATCH
               </button>
             </div>
             </div>
