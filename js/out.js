@@ -10121,38 +10121,41 @@ document.addEventListener('DOMContentLoaded', function () {
             { className: 'game-container' },
             _react2.default.createElement(
               'div',
-              { className: 'row' },
-              _react2.default.createElement('div', { 'data-tag': '1', className: this.state.fieldOne + ' field', id: 'fieldOne', onClick: this.makeMove }),
-              _react2.default.createElement('div', { 'data-tag': '2', className: this.state.fieldTwo + ' field', id: 'fieldTwo', onClick: this.makeMove }),
-              _react2.default.createElement('div', { 'data-tag': '3', className: this.state.fieldThree + ' field', id: 'fieldThree', onClick: this.makeMove })
-            ),
-            _react2.default.createElement(
-              'div',
-              { className: 'row' },
-              _react2.default.createElement('div', { 'data-tag': '4', className: this.state.fieldFour + ' field', id: 'fieldFour', onClick: this.makeMove }),
-              _react2.default.createElement('div', { 'data-tag': '5', className: this.state.fieldFive + ' field', id: 'fieldFive', onClick: this.makeMove }),
-              _react2.default.createElement('div', { 'data-tag': '6', className: this.state.fieldSix + ' field', id: 'fieldSix', onClick: this.makeMove })
-            ),
-            _react2.default.createElement(
-              'div',
-              { className: 'row' },
-              _react2.default.createElement('div', { 'data-tag': '7', className: this.state.fieldSeven + ' field', id: 'fieldSeven', onClick: this.makeMove }),
-              _react2.default.createElement('div', { 'data-tag': '8', className: this.state.fieldEight + ' field', id: 'fieldEight', onClick: this.makeMove }),
-              _react2.default.createElement('div', { 'data-tag': '9', className: this.state.fieldNine + ' field', id: 'fieldNine', onClick: this.makeMove })
-            ),
-            _react2.default.createElement(
-              'div',
-              { className: 'buttons' },
+              { className: 'experimental-container' },
               _react2.default.createElement(
-                'button',
-                { onClick: this.stopAndReset },
-                'Zacznij jeszcze raz'
+                'div',
+                { className: 'row' },
+                _react2.default.createElement('div', { 'data-tag': '1', className: this.state.fieldOne + ' field', id: 'fieldOne', onClick: this.makeMove }),
+                _react2.default.createElement('div', { 'data-tag': '2', className: this.state.fieldTwo + ' field', id: 'fieldTwo', onClick: this.makeMove }),
+                _react2.default.createElement('div', { 'data-tag': '3', className: this.state.fieldThree + ' field', id: 'fieldThree', onClick: this.makeMove })
+              ),
+              _react2.default.createElement(
+                'div',
+                { className: 'row' },
+                _react2.default.createElement('div', { 'data-tag': '4', className: this.state.fieldFour + ' field', id: 'fieldFour', onClick: this.makeMove }),
+                _react2.default.createElement('div', { 'data-tag': '5', className: this.state.fieldFive + ' field', id: 'fieldFive', onClick: this.makeMove }),
+                _react2.default.createElement('div', { 'data-tag': '6', className: this.state.fieldSix + ' field', id: 'fieldSix', onClick: this.makeMove })
+              ),
+              _react2.default.createElement(
+                'div',
+                { className: 'row' },
+                _react2.default.createElement('div', { 'data-tag': '7', className: this.state.fieldSeven + ' field', id: 'fieldSeven', onClick: this.makeMove }),
+                _react2.default.createElement('div', { 'data-tag': '8', className: this.state.fieldEight + ' field', id: 'fieldEight', onClick: this.makeMove }),
+                _react2.default.createElement('div', { 'data-tag': '9', className: this.state.fieldNine + ' field', id: 'fieldNine', onClick: this.makeMove })
+              ),
+              _react2.default.createElement(
+                'div',
+                { className: 'buttons' },
+                _react2.default.createElement(
+                  'button',
+                  { onClick: this.stopAndReset, className: 'restart-btn' },
+                  'Zacznij jeszcze raz'
+                )
               )
             )
           )
         );
       }
-      //zrobic metode ktora jesli ostatnio gracz/komputer sie pierwszy ruszal to teraz rusza sie pirwszy drugi gracz.
       // kiedy gracz zaczyna
 
 
@@ -10191,6 +10194,9 @@ document.addEventListener('DOMContentLoaded', function () {
         if (typeof _this2.props.onStart === 'function') {
           $('.intro').addClass('fade-out');
           setTimeout(_this2.props.onStart, 300);
+          setTimeout(function () {
+            $('.intro').hide();
+          }, 2000);
         }
       }, _temp), _possibleConstructorReturn(_this2, _ret);
     }
@@ -10203,7 +10209,7 @@ document.addEventListener('DOMContentLoaded', function () {
           { className: 'intro' },
           _react2.default.createElement(
             'button',
-            { onClick: this.handleStartClick },
+            { className: 'start-btn', onClick: this.handleStartClick },
             'START'
           )
         );

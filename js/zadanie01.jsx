@@ -43,6 +43,7 @@ document.addEventListener('DOMContentLoaded', function() {
             </div>
           </div>
           <div className='game-container'>
+            <div className='experimental-container'>
             <div className='row'>
               <div data-tag='1' className={this.state.fieldOne + ' field'} id='fieldOne' onClick={this.makeMove}></div>
               <div data-tag='2' className={this.state.fieldTwo + ' field'} id='fieldTwo' onClick={this.makeMove}></div>
@@ -59,16 +60,16 @@ document.addEventListener('DOMContentLoaded', function() {
               <div data-tag='9' className={this.state.fieldNine + ' field'} id='fieldNine' onClick={this.makeMove}></div>
             </div>
             <div className='buttons'>
-              <button onClick={this.stopAndReset}>
+              <button onClick={this.stopAndReset} className='restart-btn'>
                 Zacznij jeszcze raz
               </button>
+            </div>
             </div>
           </div>
         </div>
 
       )
     }
-    //zrobic metode ktora jesli ostatnio gracz/komputer sie pierwszy ruszal to teraz rusza sie pirwszy drugi gracz.
     // kiedy gracz zaczyna
     makeMove = (e) => {
       if (e.currentTarget.className === 'y field' || e.currentTarget.className === 'x field' || this.state.end) {
@@ -347,11 +348,12 @@ document.addEventListener('DOMContentLoaded', function() {
       if (typeof this.props.onStart === 'function') {
         $('.intro').addClass('fade-out')
         setTimeout(this.props.onStart, 300)
+        setTimeout(() => {$('.intro').hide()}, 2000)
       }
     }
     render() {
       return <div className='intro'>
-        <button onClick={this.handleStartClick}>
+        <button className= 'start-btn' onClick={this.handleStartClick}>
           START
         </button>
       </div>
