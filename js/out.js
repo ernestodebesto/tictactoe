@@ -9805,16 +9805,10 @@ document.addEventListener('DOMContentLoaded', function () {
       _this.endGame = function (winner) {
         if (winner === 'human') {
           var num = _this.state.humanPoints + 1;
-          _this.setState({
-            humanPoints: num,
-            end: true
-          });
+          _this.setState({ humanPoints: num, end: true });
         } else {
           var _num = _this.state.computerPoints + 1;
-          _this.setState({
-            computerPoints: _num,
-            end: true
-          });
+          _this.setState({ computerPoints: _num, end: true });
         }
       };
 
@@ -9850,9 +9844,7 @@ document.addEventListener('DOMContentLoaded', function () {
             return _this.moveAI();
           });
         } else {
-          _this.setState({
-            player: 'human'
-          });
+          _this.setState({ player: 'human' });
         }
       };
 
@@ -9878,9 +9870,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
       _this.checkDraw = function () {
         if (_this.state.moveNumber === 9) {
-          _this.setState({
-            end: true
-          });
+          _this.setState({ end: true });
         } //pokaz przycisk restart, zatrzymaj gre, wywolaj metode endgame(remis, kazdy po punkcie)
       };
 
@@ -10094,41 +10084,36 @@ document.addEventListener('DOMContentLoaded', function () {
                   'h1',
                   null,
                   'Tic Tac Toe 9000'
-                ),
-                ' '
+                )
               )
             ),
             _react2.default.createElement(
               'div',
               { className: 'points-ai' },
-              ' ',
               _react2.default.createElement(
                 'h3',
                 null,
-                'punkty uzytkownika ',
+                'punkty uzytkownika: ',
                 _react2.default.createElement(
                   'span',
                   null,
                   this.state.humanPoints
                 )
-              ),
-              ' '
+              )
             ),
             _react2.default.createElement(
               'div',
               { className: 'points-human' },
-              ' ',
               _react2.default.createElement(
                 'h3',
                 null,
-                'Punkty komputera ',
+                'Punkty komputera: ',
                 _react2.default.createElement(
                   'span',
                   null,
                   this.state.computerPoints
                 )
-              ),
-              '  '
+              )
             )
           ),
           _react2.default.createElement(
@@ -10161,7 +10146,7 @@ document.addEventListener('DOMContentLoaded', function () {
               _react2.default.createElement(
                 'button',
                 { onClick: this.stopAndReset },
-                ' Zacznij jeszcze raz '
+                'Zacznij jeszcze raz'
               )
             )
           )
@@ -10173,7 +10158,6 @@ document.addEventListener('DOMContentLoaded', function () {
 
       // akcja dla wygranej
       //zatrzymaj cala gre, dodaj punkt, pokaz przycisk restart, pokaz animacje w miejscu gdzie trzeba zrobic animacje
-
 
       //tu bedzie caly ai
 
@@ -10205,10 +10189,8 @@ document.addEventListener('DOMContentLoaded', function () {
 
       return _ret = (_temp = (_this2 = _possibleConstructorReturn(this, (_ref = Intro.__proto__ || Object.getPrototypeOf(Intro)).call.apply(_ref, [this].concat(args))), _this2), _this2.handleStartClick = function () {
         if (typeof _this2.props.onStart === 'function') {
-          $('.intro').css('visibility', 'hidden');
+          $('.intro').addClass('fade-out');
           setTimeout(_this2.props.onStart, 300);
-
-          // this.props.onStart();
         }
       }, _temp), _possibleConstructorReturn(_this2, _ret);
     }

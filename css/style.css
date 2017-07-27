@@ -39,6 +39,7 @@ button {
 
 }
 
+
 .game-title {
   text-align: center;
 }
@@ -50,11 +51,19 @@ button {
 }
 
 .intro {
-  background-color: red;
-  width: 1000px;
-  height: 1000px;
+  border:1px solid grey;
+  width: 500px;
+  height: 500px;
   position: absolute;
   z-index: 1;
+  background-color: grey;
+  opacity: 1;
+  transition: opacity 2s linear;
+}
+
+
+.fade-out {
+  opacity: 0;
 }
 
 .points-human {
