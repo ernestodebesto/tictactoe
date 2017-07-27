@@ -74,8 +74,8 @@ document.addEventListener('DOMContentLoaded', function() {
         }, () => {
           this.checkDraw();
           this.checkStatusPlayer();
-          this.moveAI();
         })
+        setTimeout(this.moveAI, 200)
         //  console.log($('.field[data-tag=1]') )
         //  console.log($('.field[data-tag=1]').attr('data-tag'));
       }
@@ -106,7 +106,7 @@ document.addEventListener('DOMContentLoaded', function() {
       if (this.state.end) {
         console.log('koniec gry');
       } else {
-      setTimeout(this.checkWinAI, 400)
+      setTimeout(this.checkWinAI, 200)
     }
     }
 
@@ -350,7 +350,10 @@ document.addEventListener('DOMContentLoaded', function() {
   class Intro extends React.Component {
     handleStartClick = () => {
       if ( typeof this.props.onStart === 'function' ){
-          this.props.onStart();
+          $('.intro').css('visibility' , 'hidden')
+          setTimeout(this.props.onStart, 300)
+
+          // this.props.onStart();
       }
     }
      render() {

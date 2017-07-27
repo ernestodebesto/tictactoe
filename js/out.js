@@ -9795,8 +9795,8 @@ document.addEventListener('DOMContentLoaded', function () {
           }, _defineProperty(_this$setState, e.currentTarget.id, 'x'), _defineProperty(_this$setState, 'takenFieldsX', arr), _this$setState), function () {
             _this.checkDraw();
             _this.checkStatusPlayer();
-            _this.moveAI();
           });
+          setTimeout(_this.moveAI, 200);
           //  console.log($('.field[data-tag=1]') )
           //  console.log($('.field[data-tag=1]').attr('data-tag'));
         }
@@ -9822,7 +9822,7 @@ document.addEventListener('DOMContentLoaded', function () {
         if (_this.state.end) {
           console.log('koniec gry');
         } else {
-          setTimeout(_this.checkWinAI, 400);
+          setTimeout(_this.checkWinAI, 200);
         }
       };
 
@@ -10205,7 +10205,10 @@ document.addEventListener('DOMContentLoaded', function () {
 
       return _ret = (_temp = (_this2 = _possibleConstructorReturn(this, (_ref = Intro.__proto__ || Object.getPrototypeOf(Intro)).call.apply(_ref, [this].concat(args))), _this2), _this2.handleStartClick = function () {
         if (typeof _this2.props.onStart === 'function') {
-          _this2.props.onStart();
+          $('.intro').css('visibility', 'hidden');
+          setTimeout(_this2.props.onStart, 300);
+
+          // this.props.onStart();
         }
       }, _temp), _possibleConstructorReturn(_this2, _ret);
     }
