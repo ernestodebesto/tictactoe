@@ -9778,7 +9778,6 @@ document.addEventListener('DOMContentLoaded', function () {
     _inherits(TicTacBoard, _React$Component);
 
     //zrobic wejsciowy stan gry   const entrySetup = [0]
-    //zrobic rowniez cos zeby nie wywalalo bledu kiedy czlowiek robi ostatni ruch na planszy i  ai nie ma gdzie sie ruszyc
 
     function TicTacBoard(props) {
       _classCallCheck(this, TicTacBoard);
@@ -9786,7 +9785,7 @@ document.addEventListener('DOMContentLoaded', function () {
       var _this = _possibleConstructorReturn(this, (TicTacBoard.__proto__ || Object.getPrototypeOf(TicTacBoard)).call(this, props));
 
       _this.makeMove = function (e) {
-        if (e.currentTarget.className === 'y field' || e.currentTarget.className === 'x field') {
+        if (e.currentTarget.className === 'y field' || e.currentTarget.className === 'x field' || _this.state.end) {
           console.log('zajete'); //byc moze trzeba bedzie zmodyfikowac te metode jesli do stylowania uzyjemy klas
         } else {
           var _this$setState;
@@ -9836,7 +9835,8 @@ document.addEventListener('DOMContentLoaded', function () {
       };
 
       _this.stopAndReset = function () {
-        console.log('restee');
+        console.log($('.field'));
+        $('.field').forEach(function (field) {});
       };
 
       _this.randomMove = function () {
@@ -10058,7 +10058,8 @@ document.addEventListener('DOMContentLoaded', function () {
         end: false
       };
       return _this;
-    }
+    } //dodac cyrkulacje - gracz- ai
+
 
     _createClass(TicTacBoard, [{
       key: 'render',
@@ -10148,6 +10149,11 @@ document.addEventListener('DOMContentLoaded', function () {
                 'button',
                 { onClick: this.moveAI },
                 ' Switch- SIdes'
+              ),
+              _react2.default.createElement(
+                'button',
+                { onClick: this.stopAndReset },
+                ' Zacznij jeszcze raz '
               )
             )
           )

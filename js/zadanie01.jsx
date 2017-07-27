@@ -4,7 +4,6 @@ const entryState = []
 document.addEventListener('DOMContentLoaded', function() {
   class TicTacBoard extends React.Component {
   //zrobic wejsciowy stan gry   const entrySetup = [0]
-  //zrobic rowniez cos zeby nie wywalalo bledu kiedy czlowiek robi ostatni ruch na planszy i  ai nie ma gdzie sie ruszyc
 
     constructor(props) {
       super(props);
@@ -26,7 +25,7 @@ document.addEventListener('DOMContentLoaded', function() {
         humanPoints: 0,
         end : false
       }
-    }
+    } //dodac cyrkulacje - gracz- ai
     render() {
       return (
         <div>
@@ -56,6 +55,7 @@ document.addEventListener('DOMContentLoaded', function() {
           </div>
           <div className='buttons'>
             <button onClick={this.moveAI}> Switch- SIdes</button>
+            <button onClick={this.stopAndReset}> Zacznij jeszcze raz </button>
           </div>
           </div>
           </div>
@@ -65,7 +65,7 @@ document.addEventListener('DOMContentLoaded', function() {
     //zrobic metode ktora jesli ostatnio gracz/komputer sie pierwszy ruszal to teraz rusza sie pirwszy drugi gracz.
     // kiedy gracz zaczyna
     makeMove = (e) => {
-      if (e.currentTarget.className === 'y field' || e.currentTarget.className === 'x field') {
+      if (e.currentTarget.className === 'y field' || e.currentTarget.className === 'x field' || this.state.end) {
         console.log('zajete'); //byc moze trzeba bedzie zmodyfikowac te metode jesli do stylowania uzyjemy klas
       } else {
         let arr = this.state.takenFieldsX.slice();
@@ -119,7 +119,10 @@ document.addEventListener('DOMContentLoaded', function() {
 
 
     stopAndReset = () => {
-      console.log('restee');
+      console.log($('.field'));
+      $('.field').forEach(field => {
+
+      })
     }
 
 
