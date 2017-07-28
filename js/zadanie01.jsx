@@ -21,7 +21,6 @@ document.addEventListener('DOMContentLoaded', function() {
         computerPoints: 0,
         humanPoints: 0,
         end: false,
-        boardUrl : "url('./img/poczatek(1).gif')"
       }
     }
     render() {
@@ -39,7 +38,7 @@ document.addEventListener('DOMContentLoaded', function() {
               </h3>
             </div>
             <div className='points-human'>
-              <h3>AI Points : <span>{this.state.computerPoints}</span>
+              <h3>AI Points : <span id='computer-points-counter'>{this.state.computerPoints}</span>
               </h3>
             </div>
           </div>
@@ -120,7 +119,6 @@ document.addEventListener('DOMContentLoaded', function() {
 
     stopAndReset = () => {
       $('.experimental-container').css('background-image', 'url(./img/poczatek.gif?'+ Math.random() +')')
-      // $('.experimental-container').css('background-image', 'url(./img/koniecgry.gif)')
       this.setState({
         fieldOne: '',
         fieldTwo: '',
@@ -259,7 +257,6 @@ document.addEventListener('DOMContentLoaded', function() {
         this.checkDangerAI();
       }
     }
-    //zanim sprawdzi checkdanger zrob metode canIWIN
     checkDangerAI = () => {
       if (!this.state.takenFieldsX.includes('5') && !this.state.takenFieldsY.includes('5')) {
         this.makeAIMove(4);

@@ -23,7 +23,7 @@ body {
 }
 
 .y {
-  background-image: url('../img/czerwonekolo.gif');
+  background-image: url('../img/zoltekolo.gif');
   background-size: cover;
 }
 
@@ -40,6 +40,10 @@ h3 {
 h3 span {
   color: #AA00FF;
   font-size: 28px;
+}
+
+#computer-points-counter {
+  color: #F0E28F;
 }
 .experimental-container {
   background-image: url('../img/poczatek.gif');

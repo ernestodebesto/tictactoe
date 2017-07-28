@@ -9829,7 +9829,6 @@ document.addEventListener('DOMContentLoaded', function () {
 
       _this.stopAndReset = function () {
         $('.experimental-container').css('background-image', 'url(./img/poczatek.gif?' + Math.random() + ')');
-        // $('.experimental-container').css('background-image', 'url(./img/koniecgry.gif)')
         _this.setState({
           fieldOne: '',
           fieldTwo: '',
@@ -10069,8 +10068,7 @@ document.addEventListener('DOMContentLoaded', function () {
         player: 'computer',
         computerPoints: 0,
         humanPoints: 0,
-        end: false,
-        boardUrl: "url('./img/poczatek(1).gif')"
+        end: false
       };
       return _this;
     }
@@ -10121,7 +10119,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 'AI Points : ',
                 _react2.default.createElement(
                   'span',
-                  null,
+                  { id: 'computer-points-counter' },
                   this.state.computerPoints
                 )
               )
@@ -10178,8 +10176,6 @@ document.addEventListener('DOMContentLoaded', function () {
       //generator losowego ruchu
 
       //sprawdz remis
-
-      //zanim sprawdzi checkdanger zrob metode canIWIN
 
     }]);
 
