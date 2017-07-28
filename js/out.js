@@ -9797,8 +9797,6 @@ document.addEventListener('DOMContentLoaded', function () {
             _this.checkStatusPlayer();
           });
           setTimeout(_this.moveAI, 200);
-          //  console.log($('.field[data-tag=1]') )
-          //  console.log($('.field[data-tag=1]').attr('data-tag'));
         }
       };
 
@@ -10019,35 +10017,20 @@ document.addEventListener('DOMContentLoaded', function () {
 
       _this.checkStatusPlayer = function () {
         if (_this.state.takenFieldsX.includes('1') && _this.state.takenFieldsX.includes('2') && _this.state.takenFieldsX.includes('3')) {
-          console.log('123');
           _this.endGame('human');
-        }
-        if (_this.state.takenFieldsX.includes('4') && _this.state.takenFieldsX.includes('5') && _this.state.takenFieldsX.includes('6')) {
-          console.log('456');
+        } else if (_this.state.takenFieldsX.includes('4') && _this.state.takenFieldsX.includes('5') && _this.state.takenFieldsX.includes('6')) {
           _this.endGame('human');
-        }
-        if (_this.state.takenFieldsX.includes('7') && _this.state.takenFieldsX.includes('8') && _this.state.takenFieldsX.includes('9')) {
-          console.log('789');
+        } else if (_this.state.takenFieldsX.includes('7') && _this.state.takenFieldsX.includes('8') && _this.state.takenFieldsX.includes('9')) {
           _this.endGame('human');
-        }
-        if (_this.state.takenFieldsX.includes('1') && _this.state.takenFieldsX.includes('4') && _this.state.takenFieldsX.includes('7')) {
-          console.log('147');
+        } else if (_this.state.takenFieldsX.includes('1') && _this.state.takenFieldsX.includes('4') && _this.state.takenFieldsX.includes('7')) {
           _this.endGame('human');
-        }
-        if (_this.state.takenFieldsX.includes('2') && _this.state.takenFieldsX.includes('5') && _this.state.takenFieldsX.includes('8')) {
-          console.log('258');
+        } else if (_this.state.takenFieldsX.includes('2') && _this.state.takenFieldsX.includes('5') && _this.state.takenFieldsX.includes('8')) {
           _this.endGame('human');
-        }
-        if (_this.state.takenFieldsX.includes('3') && _this.state.takenFieldsX.includes('6') && _this.state.takenFieldsX.includes('9')) {
-          console.log('369');
+        } else if (_this.state.takenFieldsX.includes('3') && _this.state.takenFieldsX.includes('6') && _this.state.takenFieldsX.includes('9')) {
           _this.endGame('human');
-        }
-        if (_this.state.takenFieldsX.includes('1') && _this.state.takenFieldsX.includes('5') && _this.state.takenFieldsX.includes('9')) {
-          console.log('159');
+        } else if (_this.state.takenFieldsX.includes('1') && _this.state.takenFieldsX.includes('5') && _this.state.takenFieldsX.includes('9')) {
           _this.endGame('human');
-        }
-        if (_this.state.takenFieldsX.includes('7') && _this.state.takenFieldsX.includes('5') && _this.state.takenFieldsX.includes('3')) {
-          console.log('753');
+        } else if (_this.state.takenFieldsX.includes('7') && _this.state.takenFieldsX.includes('5') && _this.state.takenFieldsX.includes('3')) {
           _this.endGame('human');
         }
       };

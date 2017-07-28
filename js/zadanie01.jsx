@@ -87,8 +87,6 @@ document.addEventListener('DOMContentLoaded', function() {
           this.checkStatusPlayer();
         })
         setTimeout(this.moveAI, 200)
-        //  console.log($('.field[data-tag=1]') )
-        //  console.log($('.field[data-tag=1]').attr('data-tag'));
       }
     }
 
@@ -178,27 +176,21 @@ document.addEventListener('DOMContentLoaded', function() {
       if (this.state.takenFieldsY.includes('1') && this.state.takenFieldsY.includes('2') && !this.state.takenFieldsX.includes('3')) {
         this.makeAIMove(2);
         this.endGame('computer');
-
       } else if (this.state.takenFieldsY.includes('1') && this.state.takenFieldsY.includes('3') && !this.state.takenFieldsX.includes('2')) {
         this.makeAIMove(1)
         this.endGame('computer')
-
       } else if (this.state.takenFieldsY.includes('2') && this.state.takenFieldsY.includes('3') && !this.state.takenFieldsX.includes('1')) {
         this.makeAIMove(0)
         this.endGame('computer')
-
       } else if (this.state.takenFieldsY.includes('4') && this.state.takenFieldsY.includes('5') && !this.state.takenFieldsX.includes('6')) {
         this.makeAIMove(5)
         this.endGame('computer')
-
       } else if (this.state.takenFieldsY.includes('4') && this.state.takenFieldsY.includes('6') && !this.state.takenFieldsX.includes('5')) {
         this.makeAIMove(4)
         this.endGame('computer')
-
       } else if (this.state.takenFieldsY.includes('5') && this.state.takenFieldsY.includes('6') && !this.state.takenFieldsX.includes('4')) {
         this.makeAIMove(3)
         this.endGame('computer')
-
       } else if (this.state.takenFieldsY.includes('7') && this.state.takenFieldsY.includes('8') && !this.state.takenFieldsX.includes('9')) {
         this.makeAIMove(8)
         this.endGame('computer')
@@ -315,35 +307,20 @@ document.addEventListener('DOMContentLoaded', function() {
 
     checkStatusPlayer = () => {
       if (this.state.takenFieldsX.includes('1') && this.state.takenFieldsX.includes('2') && this.state.takenFieldsX.includes('3')) {
-        console.log('123');
         this.endGame('human')
-      }
-      if (this.state.takenFieldsX.includes('4') && this.state.takenFieldsX.includes('5') && this.state.takenFieldsX.includes('6')) {
-        console.log('456');
+      } else if (this.state.takenFieldsX.includes('4') && this.state.takenFieldsX.includes('5') && this.state.takenFieldsX.includes('6')) {
         this.endGame('human')
-      }
-      if (this.state.takenFieldsX.includes('7') && this.state.takenFieldsX.includes('8') && this.state.takenFieldsX.includes('9')) {
-        console.log('789');
+      } else if (this.state.takenFieldsX.includes('7') && this.state.takenFieldsX.includes('8') && this.state.takenFieldsX.includes('9')) {
         this.endGame('human')
-      }
-      if (this.state.takenFieldsX.includes('1') && this.state.takenFieldsX.includes('4') && this.state.takenFieldsX.includes('7')) {
-        console.log('147');
+      } else if (this.state.takenFieldsX.includes('1') && this.state.takenFieldsX.includes('4') && this.state.takenFieldsX.includes('7')) {
         this.endGame('human')
-      }
-      if (this.state.takenFieldsX.includes('2') && this.state.takenFieldsX.includes('5') && this.state.takenFieldsX.includes('8')) {
-        console.log('258');
+      } else if (this.state.takenFieldsX.includes('2') && this.state.takenFieldsX.includes('5') && this.state.takenFieldsX.includes('8')) {
         this.endGame('human')
-      }
-      if (this.state.takenFieldsX.includes('3') && this.state.takenFieldsX.includes('6') && this.state.takenFieldsX.includes('9')) {
-        console.log('369');
+      } else if (this.state.takenFieldsX.includes('3') && this.state.takenFieldsX.includes('6') && this.state.takenFieldsX.includes('9')) {
         this.endGame('human')
-      }
-      if (this.state.takenFieldsX.includes('1') && this.state.takenFieldsX.includes('5') && this.state.takenFieldsX.includes('9')) {
-        console.log('159');
+      } else if (this.state.takenFieldsX.includes('1') && this.state.takenFieldsX.includes('5') && this.state.takenFieldsX.includes('9')) {
         this.endGame('human')
-      }
-      if (this.state.takenFieldsX.includes('7') && this.state.takenFieldsX.includes('5') && this.state.takenFieldsX.includes('3')) {
-        console.log('753');
+      } else if (this.state.takenFieldsX.includes('7') && this.state.takenFieldsX.includes('5') && this.state.takenFieldsX.includes('3')) {
         this.endGame('human')
       }
     }
