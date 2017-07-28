@@ -20,7 +20,8 @@ document.addEventListener('DOMContentLoaded', function() {
         player: 'computer',
         computerPoints: 0,
         humanPoints: 0,
-        end: false
+        end: false,
+        boardUrl : "url('./img/poczatek(1).gif')"
       }
     }
     render() {
@@ -28,17 +29,17 @@ document.addEventListener('DOMContentLoaded', function() {
         <div>
           <Intro onStart={this.moveAI}/>
           <div>
-            <div className='header-container'>
+            <div>
               <div className='game-title'>
                 <h1>Tic Tac Toe 9000</h1>
               </div>
             </div>
-            <div className='points-ai'>
-              <h3>punkty uzytkownika: <span>{this.state.humanPoints}</span>
+            <div className='points-ai' style={ {backgroundImage:this.state.boardUrl }}>
+              <h3>User Points : <span>{this.state.humanPoints}</span>
               </h3>
             </div>
             <div className='points-human'>
-              <h3>Punkty komputera: <span>{this.state.computerPoints}</span>
+              <h3>AI Points : <span>{this.state.computerPoints}</span>
               </h3>
             </div>
           </div>
@@ -94,15 +95,20 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // akcja dla wygranej
     endGame = (winner) => {
+      $('.experimental-container').css('background-image', 'url(./img/koniecgry.gif?' + Math.random()+')')
       if (winner === 'human') {
-        let num = this.state.humanPoints + 1
+        let num = this.state.humanPoints + 1;
         this.setState({humanPoints: num, end: true});
       } else {
-        let num = this.state.computerPoints + 1
+        let num = this.state.computerPoints + 1;
         this.setState({computerPoints: num, end: true});
       }
-    } //zatrzymaj cala gre, dodaj punkt, pokaz przycisk restart, pokaz animacje w miejscu gdzie trzeba zrobic animacje
+    }
 
+
+    firstRun = () => {
+      setTimeout(() => {$('.intro').hide()}, 2000)
+    }
     //tu bedzie caly ai
     moveAI = () => {
       if (this.state.end) {
@@ -113,6 +119,8 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     stopAndReset = () => {
+      $('.experimental-container').css('background-image', 'url(./img/poczatek.gif?'+ Math.random() +')')
+      // $('.experimental-container').css('background-image', 'url(./img/koniecgry.gif)')
       this.setState({
         fieldOne: '',
         fieldTwo: '',
@@ -163,8 +171,9 @@ document.addEventListener('DOMContentLoaded', function() {
     //sprawdz remis
     checkDraw = () => {
       if (this.state.moveNumber === 9) {
+        $('.experimental-container').css('background-image', 'url(./img/koniecgry.gif)')
         this.setState({end: true});
-      } //pokaz przycisk restart, zatrzymaj gre, wywolaj metode endgame(remis, kazdy po punkcie)
+      }
     }
 
     checkWinAI = () => {

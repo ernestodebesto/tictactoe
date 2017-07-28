@@ -9803,6 +9803,7 @@ document.addEventListener('DOMContentLoaded', function () {
       };
 
       _this.endGame = function (winner) {
+        $('.experimental-container').css('background-image', 'url(./img/koniecgry.gif?' + Math.random() + ')');
         if (winner === 'human') {
           var num = _this.state.humanPoints + 1;
           _this.setState({ humanPoints: num, end: true });
@@ -9810,6 +9811,12 @@ document.addEventListener('DOMContentLoaded', function () {
           var _num = _this.state.computerPoints + 1;
           _this.setState({ computerPoints: _num, end: true });
         }
+      };
+
+      _this.firstRun = function () {
+        setTimeout(function () {
+          $('.intro').hide();
+        }, 2000);
       };
 
       _this.moveAI = function () {
@@ -9821,6 +9828,8 @@ document.addEventListener('DOMContentLoaded', function () {
       };
 
       _this.stopAndReset = function () {
+        $('.experimental-container').css('background-image', 'url(./img/poczatek.gif?' + Math.random() + ')');
+        // $('.experimental-container').css('background-image', 'url(./img/koniecgry.gif)')
         _this.setState({
           fieldOne: '',
           fieldTwo: '',
@@ -9870,8 +9879,9 @@ document.addEventListener('DOMContentLoaded', function () {
 
       _this.checkDraw = function () {
         if (_this.state.moveNumber === 9) {
+          $('.experimental-container').css('background-image', 'url(./img/koniecgry.gif)');
           _this.setState({ end: true });
-        } //pokaz przycisk restart, zatrzymaj gre, wywolaj metode endgame(remis, kazdy po punkcie)
+        }
       };
 
       _this.checkWinAI = function () {
@@ -10059,7 +10069,8 @@ document.addEventListener('DOMContentLoaded', function () {
         player: 'computer',
         computerPoints: 0,
         humanPoints: 0,
-        end: false
+        end: false,
+        boardUrl: "url('./img/poczatek(1).gif')"
       };
       return _this;
     }
@@ -10076,7 +10087,7 @@ document.addEventListener('DOMContentLoaded', function () {
             null,
             _react2.default.createElement(
               'div',
-              { className: 'header-container' },
+              null,
               _react2.default.createElement(
                 'div',
                 { className: 'game-title' },
@@ -10089,11 +10100,11 @@ document.addEventListener('DOMContentLoaded', function () {
             ),
             _react2.default.createElement(
               'div',
-              { className: 'points-ai' },
+              { className: 'points-ai', style: { backgroundImage: this.state.boardUrl } },
               _react2.default.createElement(
                 'h3',
                 null,
-                'punkty uzytkownika: ',
+                'User Points : ',
                 _react2.default.createElement(
                   'span',
                   null,
@@ -10107,7 +10118,7 @@ document.addEventListener('DOMContentLoaded', function () {
               _react2.default.createElement(
                 'h3',
                 null,
-                'Punkty komputera: ',
+                'AI Points : ',
                 _react2.default.createElement(
                   'span',
                   null,
@@ -10160,7 +10171,6 @@ document.addEventListener('DOMContentLoaded', function () {
 
 
       // akcja dla wygranej
-      //zatrzymaj cala gre, dodaj punkt, pokaz przycisk restart, pokaz animacje w miejscu gdzie trzeba zrobic animacje
 
       //tu bedzie caly ai
 
