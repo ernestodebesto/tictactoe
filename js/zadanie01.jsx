@@ -33,12 +33,13 @@ document.addEventListener('DOMContentLoaded', function() {
                 <h1>Tic Tac Toe 9000</h1>
               </div>
             </div>
-            <div className='points-ai' style={ {backgroundImage:this.state.boardUrl }}>
+            <div className='points-ai'>
               <h3>User Points : <span>{this.state.humanPoints}</span>
               </h3>
             </div>
+            <div> helloo</div>
             <div className='points-human'>
-              <h3>AI Points : <span id='computer-points-counter'>{this.state.computerPoints}</span>
+              <h3>AI Points : <span id='points-human'>{this.state.computerPoints}</span>
               </h3>
             </div>
           </div>
@@ -70,6 +71,16 @@ document.addEventListener('DOMContentLoaded', function() {
 
       )
     }
+
+
+    //zmien zasade ruszania sie. tylko po jednym state dla pozycji.
+    //metody do ai
+    //tak, zeby bylo ladnie
+    //podziel na moduly
+    //dodaj komponent - header - punkty
+    //usun jquert
+    //zmien humanpoints na computer points
+
     // kiedy gracz zaczyna
     makeMove = (e) => {
       if (e.currentTarget.className === 'y field' || e.currentTarget.className === 'x field' || this.state.end) {
@@ -89,7 +100,6 @@ document.addEventListener('DOMContentLoaded', function() {
         setTimeout(this.moveAI, 200)
       }
     }
-
     // akcja dla wygranej
     endGame = (winner) => {
       $('.experimental-container').css('background-image', 'url(./img/koniecgry.gif?' + Math.random()+')')
@@ -103,9 +113,11 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
 
-    firstRun = () => {
-      setTimeout(() => {$('.intro').hide()}, 2000)
-    }
+    //zdecyduj sie czy zostawic element intro zeby wiedzieli ze umiem propsy. a moze wyjebac intro i dac propsy headerowi
+    // firstRun = () => {
+    //   setTimeout(() => {$('.intro').hide()}, 2000)
+    // }
+
     //tu bedzie caly ai
     moveAI = () => {
       if (this.state.end) {
@@ -114,7 +126,6 @@ document.addEventListener('DOMContentLoaded', function() {
         setTimeout(this.checkWinAI, 200)
       }
     }
-
     stopAndReset = () => {
       $('.experimental-container').css('background-image', 'url(./img/poczatek.gif?'+ Math.random() +')')
       this.setState({

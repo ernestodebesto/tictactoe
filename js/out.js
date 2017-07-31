@@ -9811,12 +9811,6 @@ document.addEventListener('DOMContentLoaded', function () {
         }
       };
 
-      _this.firstRun = function () {
-        setTimeout(function () {
-          $('.intro').hide();
-        }, 2000);
-      };
-
       _this.moveAI = function () {
         if (_this.state.end) {
           console.log('koniec gry');
@@ -10081,7 +10075,7 @@ document.addEventListener('DOMContentLoaded', function () {
             ),
             _react2.default.createElement(
               'div',
-              { className: 'points-ai', style: { backgroundImage: this.state.boardUrl } },
+              { className: 'points-ai' },
               _react2.default.createElement(
                 'h3',
                 null,
@@ -10095,6 +10089,11 @@ document.addEventListener('DOMContentLoaded', function () {
             ),
             _react2.default.createElement(
               'div',
+              null,
+              ' helloo'
+            ),
+            _react2.default.createElement(
+              'div',
               { className: 'points-human' },
               _react2.default.createElement(
                 'h3',
@@ -10102,7 +10101,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 'AI Points : ',
                 _react2.default.createElement(
                   'span',
-                  { id: 'computer-points-counter' },
+                  { id: 'points-human' },
                   this.state.computerPoints
                 )
               )
@@ -10148,10 +10147,24 @@ document.addEventListener('DOMContentLoaded', function () {
           )
         );
       }
+
+      //zmien zasade ruszania sie. tylko po jednym state dla pozycji.
+      //metody do ai
+      //tak, zeby bylo ladnie
+      //podziel na moduly
+      //dodaj komponent - header - punkty
+      //usun jquert
+      //zmien humanpoints na computer points
+
       // kiedy gracz zaczyna
 
-
       // akcja dla wygranej
+
+
+      //zdecyduj sie czy zostawic element intro zeby wiedzieli ze umiem propsy. a moze wyjebac intro i dac propsy headerowi
+      // firstRun = () => {
+      //   setTimeout(() => {$('.intro').hide()}, 2000)
+      // }
 
       //tu bedzie caly ai
 

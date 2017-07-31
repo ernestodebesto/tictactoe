@@ -28,7 +28,9 @@ h1 {
   font-size: 50px;
   color: #18CAE6;
   margin-bottom: 5px;
+  text-shadow: 2px 2px #ff0000;
 }
+
 
 h3 {
   color: #18CAE6;
@@ -39,7 +41,7 @@ h3 span {
   font-size: 32px;
 }
 
-#computer-points-counter {
+#points-human {
   color: #F0E28F;
 }
 .experimental-container {
@@ -50,8 +52,6 @@ h3 span {
   width:456px;
   height:456px
 }
-
-
 
 .restart-btn {
   width: 100px;
@@ -108,8 +108,6 @@ h3 span {
 .game-title {
   text-align: center;
 }
-
-
 
 .intro {
   width: 763px;
