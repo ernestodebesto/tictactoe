@@ -80,6 +80,8 @@ document.addEventListener('DOMContentLoaded', function() {
     //dodaj komponent - header - punkty
     //usun jquert
     //zmien humanpoints na computer points
+    //komenty na angielski
+
 
     // kiedy gracz zaczyna
     makeMove = (e) => {
@@ -111,7 +113,6 @@ document.addEventListener('DOMContentLoaded', function() {
         this.setState({computerPoints: num, end: true});
       }
     }
-
 
     //zdecyduj sie czy zostawic element intro zeby wiedzieli ze umiem propsy. a moze wyjebac intro i dac propsy headerowi
     // firstRun = () => {
@@ -182,7 +183,11 @@ document.addEventListener('DOMContentLoaded', function() {
         this.setState({end: true});
       }
     }
-
+    makeAIMove = (fieldy1, fieldy2, fieldx, moveAI) => {
+      if (this.state.takenFieldsY.includes(fieldy1) && this.state.takenFieldsY.includes(fieldy2) && !this.state.takenFieldsX.includes(fieldy3)) {
+        this.makeAIMove(moveAI);
+        this.endGame('computer');
+    }
     checkWinAI = () => {
       if (this.state.takenFieldsY.includes('1') && this.state.takenFieldsY.includes('2') && !this.state.takenFieldsX.includes('3')) {
         this.makeAIMove(2);
