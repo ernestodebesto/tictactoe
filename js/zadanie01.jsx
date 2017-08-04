@@ -1,372 +1,230 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 document.addEventListener('DOMContentLoaded', function() {
-  class TicTacBoard extends React.Component {
+//TODO przywroc idiki z beckepa. potem
+  class Field extends React.Component {
+    render() {
+      return (
+        <div
+          className="field"
+          id={this.props.isTaken}
+          onClick={() => this.props.onAction()}
+         />
+      )
+    }
+  }
+
+  class Board extends React.Component {
     constructor(props) {
       super(props);
       this.state = {
-        fieldOne: '',
-        fieldTwo: '',
-        fieldThree: '',
-        fieldFour: '',
-        fieldFive: '',
-        fieldSix: '',
-        fieldSeven: '',
-        fieldEight: '',
-        fieldNine: '',
-        takenFieldsX: [],
-        takenFieldsY: [],
-        moveNumber: 0,
-        player: 'computer',
-        computerPoints: 0,
-        humanPoints: 0,
-        end: false,
+          boardState : [null, null, null,
+                        null, null, null,
+                        null, null, null],
+           player : 'human',
+           end : false,
+           moveNumber : 0,
+           playerPoints : 0,
+           AIpoints : 0,
+           background : 'url(./img/poczatek.gif?',
       }
     }
-    render() {
+    //render field components
+    renderField(i) {
       return (
-        <div>
-          <Intro onStart={this.moveAI}/>
-          <div>
-            <div>
-              <div className='game-title'>
-                <h1>Tic Tac Toe 9000</h1>
-              </div>
-            </div>
-            <div className='points-ai'>
-              <h3>User Points : <span>{this.state.humanPoints}</span>
-              </h3>
-            </div>
-            <div> helloo</div>
-            <div className='points-human'>
-              <h3>AI Points : <span id='points-human'>{this.state.computerPoints}</span>
-              </h3>
-            </div>
-          </div>
-          <div className='game-container'>
-            <div className='experimental-container'>
-            <div className='row'>
-              <div data-tag='1' className={this.state.fieldOne + ' field'} id='fieldOne' onClick={this.makeMove}></div>
-              <div data-tag='2' className={this.state.fieldTwo + ' field'} id='fieldTwo' onClick={this.makeMove}></div>
-              <div data-tag='3' className={this.state.fieldThree + ' field'} id='fieldThree' onClick={this.makeMove}></div>
-            </div>
-            <div className='row'>
-              <div data-tag='4' className={this.state.fieldFour + ' field'} id='fieldFour' onClick={this.makeMove}></div>
-              <div data-tag='5' className={this.state.fieldFive + ' field'} id='fieldFive' onClick={this.makeMove}></div>
-              <div data-tag='6' className={this.state.fieldSix + ' field'} id='fieldSix' onClick={this.makeMove}></div>
-            </div>
-            <div className='row'>
-              <div data-tag='7' className={this.state.fieldSeven + ' field'} id='fieldSeven' onClick={this.makeMove}></div>
-              <div data-tag='8' className={this.state.fieldEight + ' field'} id='fieldEight' onClick={this.makeMove}></div>
-              <div data-tag='9' className={this.state.fieldNine + ' field'} id='fieldNine' onClick={this.makeMove}></div>
-            </div>
-            <div className='buttons'>
-              <button onClick={this.stopAndReset} className='restart-btn'>
-                REMATCH
-              </button>
-            </div>
-            </div>
-          </div>
-        </div>
-
+        <Field id={i}
+          isTaken={this.state.boardState[i]}
+          onAction={() => this.handleClick(i)}
+          />
       )
     }
 
 
-    //zmien zasade ruszania sie. tylko po jednym state dla pozycji.
-    //metody do ai
-    //tak, zeby bylo ladnie
-    //podziel na moduly
-    //dodaj komponent - header - punkty
-    //usun jquert
-    //zmien humanpoints na computer points
-    //komenty na angielski
 
-
-    // kiedy gracz zaczyna
-    makeMove = (e) => {
-      if (e.currentTarget.className === 'y field' || e.currentTarget.className === 'x field' || this.state.end) {
-        console.log('zajete'); //byc moze trzeba bedzie zmodyfikowac te metode jesli do stylowania uzyjemy klas
+    //checks if a field where player wants to move is empty or taken, moves player and then exectues AI
+    handleClick = (i) => {
+      let arr = this.state.boardState.slice();
+      if (this.state.player === 'computer' || arr[i] === 'X' || arr[i] === 'Y' || this.state.end) {
+        console.log('zajete');
       } else {
-        let arr = this.state.takenFieldsX.slice();
-        let num = parseInt(this.state.moveNumber) + 1
-        arr.push(e.target.getAttribute('data-tag'))
+        arr[i] = 'X'
         this.setState({
-          moveNumber: num,
-          [e.currentTarget.id]: 'x',
-          takenFieldsX: arr
+          boardState: arr,
+          player : 'computer',
+          moveNumber : this.state.moveNumber +1
         }, () => {
-          this.checkDraw();
-          this.checkStatusPlayer();
+          this.checkWinHuman(0,1,2)
+          this.checkWinHuman(3,4,5)
+          this.checkWinHuman(6,7,8)
+          this.checkWinHuman(0,3,6)
+          this.checkWinHuman(1,4,7)
+          this.checkWinHuman(2,5,8)
+          this.checkWinHuman(0,4,8)
+          this.checkWinHuman(6,4,2)
+          this.moveAI()
         })
-        setTimeout(this.moveAI, 200)
-      }
-    }
-    // akcja dla wygranej
-    endGame = (winner) => {
-      $('.experimental-container').css('background-image', 'url(./img/koniecgry.gif?' + Math.random()+')')
-      if (winner === 'human') {
-        let num = this.state.humanPoints + 1;
-        this.setState({humanPoints: num, end: true});
-      } else {
-        let num = this.state.computerPoints + 1;
-        this.setState({computerPoints: num, end: true});
       }
     }
 
-    //zdecyduj sie czy zostawic element intro zeby wiedzieli ze umiem propsy. a moze wyjebac intro i dac propsy headerowi
-    // firstRun = () => {
-    //   setTimeout(() => {$('.intro').hide()}, 2000)
-    // }
-
-    //tu bedzie caly ai
+    //initiate AI
+    //TODO zmienic ot jakos?
     moveAI = () => {
-      if (this.state.end) {
-        console.log('koniec gry');
-      } else {
-        setTimeout(this.checkWinAI, 200)
-      }
+      this.checkDraw();
+      setTimeout(this.runAI, 200)
     }
-    stopAndReset = () => {
-      $('.experimental-container').css('background-image', 'url(./img/poczatek.gif?'+ Math.random() +')')
-      this.setState({
-        fieldOne: '',
-        fieldTwo: '',
-        fieldThree: '',
-        fieldFour: '',
-        fieldFive: '',
-        fieldSix: '',
-        fieldSeven: '',
-        fieldEight: '',
-        fieldNine: '',
-        takenFieldsX: [],
-        takenFieldsY: [],
-        moveNumber: 0,
-        end: false
-      });
 
-      if (this.state.player === 'human') {
-        this.setState({
-          player: 'computer'
-        }, () => this.moveAI())
+    //run AI
+    runAI = (arr) => {
+      if (this.state.end ) {
+      } else if (this.state.boardState[4] === null) {
+        this.makeAIMove(4)
       } else {
-        this.setState({player: 'human'})
+        this.checkWinField(0,1,2)
+        this.checkWinField(3,4,5)
+        this.checkWinField(6,7,8)
+        this.checkWinField(0,3,6)
+        this.checkWinField(1,4,7)
+        this.checkWinField(2,5,8)
+        this.checkWinField(0,4,8)
+        this.checkWinField(6,4,2)
+        this.checkDangerField(0,1,2)
+        this.checkDangerField(3,4,5)
+        this.checkDangerField(6,7,8)
+        this.checkDangerField(0,3,6)
+        this.checkDangerField(1,4,7)
+        this.checkDangerField(2,5,8)
+        this.checkDangerField(0,4,8)
+        this.checkDangerField(6,4,2)
+        this.randomMove()
+        this.checkDraw()
       }
     }
 
-    //generator losowego ruchu
+    checkDraw = () => {
+      if (this.state.moveNumber === 9 ) {
+        this.setState({end : true})
+        this.changeBackground();
+      }
+    }
+    //random move generator
     randomMove = () => {
       let randomMove = Math.floor(Math.random() * 9);
-      if (($('.field').eq(randomMove).hasClass('x')) || ($('.field').eq(randomMove).hasClass('y'))) {
-        this.moveAI();
-      } else {
+      if (this.state.boardState[randomMove] != 'X' && this.state.boardState[randomMove] != 'Y'){
         this.makeAIMove(randomMove)
+      } else {
+        this.randomMove()
       }
     }
 
-    makeAIMove = destination => {
-      let arr = this.state.takenFieldsY.slice();
-      arr.push($('.field').eq(destination).attr('data-tag'))
-      let num = this.state.moveNumber + 1
+    //actually moves AI
+    makeAIMove = (field) => {
+      if (this.state.player === 'computer') {
+        let boardState = this.state.boardState.slice();
+        boardState[field] = 'Y';
+        let moveNumber = this.state.moveNumber + 1;
+        this.setState({
+          boardState : boardState,
+          player : 'human',
+          moveNumber : moveNumber,
+        })
+      }
+    }
+
+    //checks if AI can win in 1 move
+    checkWinField = (field1, field2, field3) => {
+      if (this.state.boardState[field1]=== 'Y' && this.state.boardState[field2]==='Y' && this.state.boardState[field3] != 'X'){
+        this.makeAIMove(field3)
+        this.setState({end : true , AIpoints : this.state.AIpoints +1})
+        this.changeBackground();
+      } else if (this.state.boardState[field3]=== 'Y' && this.state.boardState[field2]==='Y' && this.state.boardState[field1] != 'X'){
+        this.makeAIMove(field1)
+        this.setState({end : true , AIpoints : this.state.AIpoints +1})
+        this.changeBackground();
+      } else if (this.state.boardState[field3]=== 'Y' && this.state.boardState[field1]==='Y' && this.state.boardState[field2] != 'X'){
+        this.makeAIMove(field2)
+        this.setState({end : true , AIpoints : this.state.AIpoints +1})
+        this.changeBackground();
+      }
+    }
+    //checks if AI will loose in 1 move
+    checkDangerField = (field1, field2, field3) => {
+      if (this.state.boardState[field1]=== 'X' && this.state.boardState[field2]==='X' && this.state.boardState[field3] != 'Y'){
+        this.makeAIMove(field3)
+      } else if (this.state.boardState[field3]=== 'X' && this.state.boardState[field2]==='X' && this.state.boardState[field1] != 'Y'){
+        this.makeAIMove(field1)
+      } else if (this.state.boardState[field3]=== 'X' && this.state.boardState[field1]==='X' && this.state.boardState[field2] != 'Y'){
+        this.makeAIMove(field2)
+      }
+    }
+
+    //check if human won
+    checkWinHuman = (pos1, pos2 , pos3) => {
+      if (this.state.boardState[pos1] === 'X' && this.state.boardState[pos2] === 'X' && this.state.boardState[pos3] === 'X' ){
+        this.setState({end : true, playerPoints : this.state.playerPoints +1 })
+        this.changeBackground();
+      }
+    }
+
+    //change background for endgame animation
+    changeBackground = () => {
+      document.querySelector('.game-board').style.backgroundImage='url(./img/koniecgry.gif?'+ Math.random() +')'
+    }
+    //Click button and reset the game
+    stopAndReset = () => {
       this.setState({
-        [$('.field').eq(destination).attr('id')]: 'y',
-        takenFieldsY: arr,
-        moveNumber: num
-      }, () => {
-        this.checkDraw();
+        boardState : [null, null, null,
+                      null, null, null,
+                      null, null, null],
+         player : 'human',
+         end : false,
+         moveNumber : 0,
       })
-    }
-    //sprawdz remis
-    checkDraw = () => {
-      if (this.state.moveNumber === 9) {
-        $('.experimental-container').css('background-image', 'url(./img/koniecgry.gif)')
-        this.setState({end: true});
-      }
-    }
-    makeAIMove = (fieldy1, fieldy2, fieldx, moveAI) => {
-      if (this.state.takenFieldsY.includes(fieldy1) && this.state.takenFieldsY.includes(fieldy2) && !this.state.takenFieldsX.includes(fieldy3)) {
-        this.makeAIMove(moveAI);
-        this.endGame('computer');
-    }
-    checkWinAI = () => {
-      if (this.state.takenFieldsY.includes('1') && this.state.takenFieldsY.includes('2') && !this.state.takenFieldsX.includes('3')) {
-        this.makeAIMove(2);
-        this.endGame('computer');
-      } else if (this.state.takenFieldsY.includes('1') && this.state.takenFieldsY.includes('3') && !this.state.takenFieldsX.includes('2')) {
-        this.makeAIMove(1)
-        this.endGame('computer')
-      } else if (this.state.takenFieldsY.includes('2') && this.state.takenFieldsY.includes('3') && !this.state.takenFieldsX.includes('1')) {
-        this.makeAIMove(0)
-        this.endGame('computer')
-      } else if (this.state.takenFieldsY.includes('4') && this.state.takenFieldsY.includes('5') && !this.state.takenFieldsX.includes('6')) {
-        this.makeAIMove(5)
-        this.endGame('computer')
-      } else if (this.state.takenFieldsY.includes('4') && this.state.takenFieldsY.includes('6') && !this.state.takenFieldsX.includes('5')) {
-        this.makeAIMove(4)
-        this.endGame('computer')
-      } else if (this.state.takenFieldsY.includes('5') && this.state.takenFieldsY.includes('6') && !this.state.takenFieldsX.includes('4')) {
-        this.makeAIMove(3)
-        this.endGame('computer')
-      } else if (this.state.takenFieldsY.includes('7') && this.state.takenFieldsY.includes('8') && !this.state.takenFieldsX.includes('9')) {
-        this.makeAIMove(8)
-        this.endGame('computer')
-      } else if (this.state.takenFieldsY.includes('7') && this.state.takenFieldsY.includes('9') && !this.state.takenFieldsX.includes('8')) {
-        this.makeAIMove(7)
-        this.endGame('computer')
-      } else if (this.state.takenFieldsY.includes('8') && this.state.takenFieldsY.includes('9') && !this.state.takenFieldsX.includes('7')) {
-        this.makeAIMove(6)
-        this.endGame('computer')
-      } else if (this.state.takenFieldsY.includes('1') && this.state.takenFieldsY.includes('4') && !this.state.takenFieldsX.includes('7')) {
-        this.makeAIMove(6)
-        this.endGame('computer')
-      } else if (this.state.takenFieldsY.includes('1') && this.state.takenFieldsY.includes('7') && !this.state.takenFieldsX.includes('4')) {
-        this.makeAIMove(3)
-        this.endGame('computer')
-      } else if (this.state.takenFieldsY.includes('4') && this.state.takenFieldsY.includes('7') && !this.state.takenFieldsX.includes('1')) {
-        this.makeAIMove(0)
-        this.endGame('computer')
-      } else if (!this.state.takenFieldsX.includes('8') && this.state.takenFieldsY.includes('2') && this.state.takenFieldsY.includes('5')) {
-        this.makeAIMove(7)
-        this.endGame('computer')
-      } else if (this.state.takenFieldsY.includes('2') && this.state.takenFieldsY.includes('8') && !this.state.takenFieldsX.includes('5')) {
-        this.makeAIMove(4)
-        this.endGame('computer')
-      } else if (this.state.takenFieldsY.includes('5') && this.state.takenFieldsY.includes('8') && !this.state.takenFieldsX.includes('2')) {
-        this.makeAIMove(1)
-        this.endGame('computer')
-      } else if (this.state.takenFieldsY.includes('3') && this.state.takenFieldsY.includes('6') && !this.state.takenFieldsX.includes('9')) {
-        this.makeAIMove(8)
-        this.endGame('computer')
-      } else if (this.state.takenFieldsY.includes('3') && this.state.takenFieldsY.includes('9') && !this.state.takenFieldsX.includes('6')) {
-        this.makeAIMove(5)
-        this.endGame('computer')
-      } else if (this.state.takenFieldsY.includes('6') && this.state.takenFieldsY.includes('9') && !this.state.takenFieldsX.includes('3')) {
-        this.makeAIMove(2)
-        this.endGame('computer')
-      } else if (this.state.takenFieldsY.includes('1') && this.state.takenFieldsY.includes('5') && !this.state.takenFieldsX.includes('9')) {
-        this.makeAIMove(8)
-        this.endGame('computer')
-      } else if (this.state.takenFieldsY.includes('5') && this.state.takenFieldsY.includes('9') && !this.state.takenFieldsX.includes('1')) {
-        this.makeAIMove(0)
-        this.endGame('computer')
-      } else if (this.state.takenFieldsY.includes('1') && this.state.takenFieldsY.includes('9') && !this.state.takenFieldsX.includes('5')) {
-        this.makeAIMove(4)
-        this.endGame('computer')
-      } else if (this.state.takenFieldsY.includes('3') && this.state.takenFieldsY.includes('5') && !this.state.takenFieldsX.includes('7')) {
-        this.makeAIMove(6)
-        this.endGame('computer')
-      } else if (this.state.takenFieldsY.includes('3') && this.state.takenFieldsY.includes('7') && !this.state.takenFieldsX.includes('5')) {
-        this.makeAIMove(4)
-        this.endGame('computer')
-      } else if (this.state.takenFieldsY.includes('5') && this.state.takenFieldsY.includes('7') && !this.state.takenFieldsX.includes('3')) {
-        this.makeAIMove(2)
-        this.endGame('computer')
-      } else {
-        this.checkDangerAI();
-      }
-    }
-    checkDangerAI = () => {
-      if (!this.state.takenFieldsX.includes('5') && !this.state.takenFieldsY.includes('5')) {
-        this.makeAIMove(4);
-      } else if (this.state.takenFieldsX.includes('1') && this.state.takenFieldsX.includes('2') && !this.state.takenFieldsY.includes('3')) {
-        this.makeAIMove(2)
-      } else if (this.state.takenFieldsX.includes('1') && this.state.takenFieldsX.includes('3') && !this.state.takenFieldsY.includes('2')) {
-        this.makeAIMove(1)
-      } else if (this.state.takenFieldsX.includes('2') && this.state.takenFieldsX.includes('3') && !this.state.takenFieldsY.includes('1')) {
-        this.makeAIMove(0)
-      } else if (this.state.takenFieldsX.includes('4') && this.state.takenFieldsX.includes('5') && !this.state.takenFieldsY.includes('6')) {
-        this.makeAIMove(5)
-      } else if (this.state.takenFieldsX.includes('4') && this.state.takenFieldsX.includes('6') && !this.state.takenFieldsY.includes('5')) {
-        this.makeAIMove(4)
-      } else if (this.state.takenFieldsX.includes('5') && this.state.takenFieldsX.includes('6') && !this.state.takenFieldsY.includes('4')) {
-        this.makeAIMove(3)
-      } else if (this.state.takenFieldsX.includes('7') && this.state.takenFieldsX.includes('8') && !this.state.takenFieldsY.includes('9')) {
-        this.makeAIMove(8)
-      } else if (this.state.takenFieldsX.includes('7') && this.state.takenFieldsX.includes('9') && !this.state.takenFieldsY.includes('8')) {
-        this.makeAIMove(7)
-      } else if (this.state.takenFieldsX.includes('8') && this.state.takenFieldsX.includes('9') && !this.state.takenFieldsY.includes('7')) {
-        this.makeAIMove(6)
-      } else if (this.state.takenFieldsX.includes('1') && this.state.takenFieldsX.includes('4') && !this.state.takenFieldsY.includes('7')) {
-        this.makeAIMove(6)
-      } else if (this.state.takenFieldsX.includes('1') && this.state.takenFieldsX.includes('7') && !this.state.takenFieldsY.includes('4')) {
-        this.makeAIMove(3)
-      } else if (this.state.takenFieldsX.includes('4') && this.state.takenFieldsX.includes('7') && !this.state.takenFieldsY.includes('1')) {
-        this.makeAIMove(0)
-      } else if (!this.state.takenFieldsY.includes('8') && this.state.takenFieldsX.includes('2') && this.state.takenFieldsX.includes('5')) {
-        this.makeAIMove(7)
-      } else if (this.state.takenFieldsX.includes('2') && this.state.takenFieldsX.includes('8') && !this.state.takenFieldsY.includes('5')) {
-        this.makeAIMove(4)
-      } else if (this.state.takenFieldsX.includes('5') && this.state.takenFieldsX.includes('8') && !this.state.takenFieldsY.includes('2')) {
-        this.makeAIMove(1)
-      } else if (this.state.takenFieldsX.includes('3') && this.state.takenFieldsX.includes('6') && !this.state.takenFieldsY.includes('9')) {
-        this.makeAIMove(8)
-      } else if (this.state.takenFieldsX.includes('3') && this.state.takenFieldsX.includes('9') && !this.state.takenFieldsY.includes('6')) {
-        this.makeAIMove(5)
-      } else if (this.state.takenFieldsX.includes('6') && this.state.takenFieldsX.includes('9') && !this.state.takenFieldsY.includes('3')) {
-        this.makeAIMove(2)
-      } else if (this.state.takenFieldsX.includes('1') && this.state.takenFieldsX.includes('5') && !this.state.takenFieldsY.includes('9')) {
-        this.makeAIMove(8)
-      } else if (this.state.takenFieldsX.includes('5') && this.state.takenFieldsX.includes('9') && !this.state.takenFieldsY.includes('1')) {
-        this.makeAIMove(0)
-      } else if (this.state.takenFieldsX.includes('1') && this.state.takenFieldsX.includes('9') && !this.state.takenFieldsY.includes('5')) {
-        this.makeAIMove(4)
-      } else if (this.state.takenFieldsX.includes('3') && this.state.takenFieldsX.includes('5') && !this.state.takenFieldsY.includes('7')) {
-        this.makeAIMove(6)
-      } else if (this.state.takenFieldsX.includes('3') && this.state.takenFieldsX.includes('7') && !this.state.takenFieldsY.includes('5')) {
-        this.makeAIMove(4)
-      } else if (this.state.takenFieldsX.includes('5') && this.state.takenFieldsX.includes('7') && !this.state.takenFieldsY.includes('3')) {
-        this.makeAIMove(2)
-      } else {
-        this.randomMove();
-      }
+      document.querySelector('.game-board').style.backgroundImage='url(./img/poczatek.gif?'+ Math.random() +')';
     }
 
-    checkStatusPlayer = () => {
-      if (this.state.takenFieldsX.includes('1') && this.state.takenFieldsX.includes('2') && this.state.takenFieldsX.includes('3')) {
-        this.endGame('human')
-      } else if (this.state.takenFieldsX.includes('4') && this.state.takenFieldsX.includes('5') && this.state.takenFieldsX.includes('6')) {
-        this.endGame('human')
-      } else if (this.state.takenFieldsX.includes('7') && this.state.takenFieldsX.includes('8') && this.state.takenFieldsX.includes('9')) {
-        this.endGame('human')
-      } else if (this.state.takenFieldsX.includes('1') && this.state.takenFieldsX.includes('4') && this.state.takenFieldsX.includes('7')) {
-        this.endGame('human')
-      } else if (this.state.takenFieldsX.includes('2') && this.state.takenFieldsX.includes('5') && this.state.takenFieldsX.includes('8')) {
-        this.endGame('human')
-      } else if (this.state.takenFieldsX.includes('3') && this.state.takenFieldsX.includes('6') && this.state.takenFieldsX.includes('9')) {
-        this.endGame('human')
-      } else if (this.state.takenFieldsX.includes('1') && this.state.takenFieldsX.includes('5') && this.state.takenFieldsX.includes('9')) {
-        this.endGame('human')
-      } else if (this.state.takenFieldsX.includes('7') && this.state.takenFieldsX.includes('5') && this.state.takenFieldsX.includes('3')) {
-        this.endGame('human')
-      }
+    render() {
+      return (
+          <div className='game-title'>
+            <h1> Tic Tac Toe 9000</h1>
+          <div className='scores'>
+            <h3>Player Points: <span>{this.state.playerPoints}</span></h3>
+            <h3>Computer Points: <span className='points-human'>{this.state.AIpoints}</span></h3>
+          </div>
+          <div className='game-board'>
+            <div className='row'>
+              {this.renderField(0)}
+              {this.renderField(1)}
+              {this.renderField(2)}
+            </div>
+            <div className='row'>
+              {this.renderField(3)}
+              {this.renderField(4)}
+              {this.renderField(5)}
+            </div>
+            <div className='row'>
+              {this.renderField(6)}
+              {this.renderField(7)}
+              {this.renderField(8)}
+            </div>
+            <div className='btn-container'>
+              <button onClick={this.stopAndReset} className='btn'> REMATCH </button>
+            </div>
+          </div>
+        </div>
+      )
     }
   }
 
-  class Intro extends React.Component {
-    handleStartClick = () => {
-      if (typeof this.props.onStart === 'function') {
-        $('.intro').addClass('fade-out')
-        setTimeout(this.props.onStart, 300)
-        setTimeout(() => {$('.intro').hide()}, 2000)
-      }
-    }
+  class Game extends React.Component {
     render() {
-      return <div className='intro'>
-        <button className= 'start-btn' onClick={this.handleStartClick}>
-          START
-        </button>
-      </div>
-    }
-  }
-
-  class App extends React.Component {
-    render() {
-      return <div className='main-container'>
-        <TicTacBoard/>
-      </div>
+      return (
+        <div className='main-container'>
+            <Board/>
+        </div>
+      )
     }
   }
 
   ReactDOM.render(
-    <App/>, document.getElementById('app'));
+    <Game/>, document.getElementById('app'));
 });

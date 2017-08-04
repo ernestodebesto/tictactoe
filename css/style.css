@@ -1,28 +1,60 @@
 * {
   font-family: 'Orbitron', sans-serif;
 }
-
 body {
   background-image:url('../img/source.gif');
 }
-.row {
-  display:flex;
+.main-container {
+  margin: 0 auto;
+  width: 1000px;
+  display: flex;
+  justify-content: center;
+}
+
+.row:after {
+  clear: both;
+  content: "";
+  display: table;
 }
 
 .field {
+  float: left;
+  font-size: 24px;
+  font-weight: bold;
+  line-height: 34px;
   height: 150px;
-  width:150px;
+  margin-right: -1px;
+  margin-top: -1px;
+  padding: 0;
+  text-align: center;
+  width: 150px;
+  position:relative;
+  background-size: cover;
 }
 
-.x{
+
+.game-board {
+    background-image: url('../img/poczatek.gif');
+    background-size:cover;
+    position:absolute;
+    width:456px;
+    height:456px
+}
+
+.btn {
+  margin-top: 500px;
+}
+
+#X{
   background-image: url('../img/rozowyx.gif');
   background-size: cover;
 }
 
-.y {
+#Y {
   background-image: url('../img/zoltekolo.gif');
   background-size: cover;
 }
+
 
 h1 {
   font-size: 50px;
@@ -41,24 +73,19 @@ h3 span {
   font-size: 32px;
 }
 
-#points-human {
+.points-human {
   color: #F0E28F;
 }
-.experimental-container {
-  background-image: url('../img/poczatek.gif');
-  background-size:cover;
-  position:absolute;
-  z-index:10;
-  width:456px;
-  height:456px
+.btn-container {
+  display: flex;
+  justify-content: center;
 }
 
-.restart-btn {
-  width: 100px;
-  height: 50px;
-  margin: 30px;
-  left: 22%;
-  position: relative;
+.scores {
+  display: flex;
+  justify-content: center;
+}
+.btn {
   border-radius: 5px;
   background-color: #18CAE6;
   width:200px;
@@ -69,76 +96,13 @@ h3 span {
   font-size: 18px;
   margin-top: 10px;
 }
-.restart-btn:hover {
+.btn:hover {
   box-shadow:0 0 0 25px black inset;
   font-size: 22px;
   font-weight: 5000;
 }
 
-.start-btn {
-  border-radius: 5px;
-  background-color: #18CAE6;
-  width:200px;
-  height:100px;
-  transition: 0.5s;
-  box-shadow: inset 0 0 0 0 #222;
-}
-
-.start-btn:hover {
-  box-shadow:0 0 0 35px black inset;
-}
-
-.main-container {
-  margin: 0 auto;
-  width: 1000px;
-}
-
-
-.game-container {
+.scores {
   display:flex;
   justify-content: space-between;
-  align-items: center;
-  flex-direction: column;
-  margin-top: 100px;
-  margin-bottom: 0px;
-
-}
-
-
-.game-title {
-  text-align: center;
-}
-
-.intro {
-  width: 763px;
-  height: 628px;
-  position: relative;
-  z-index: 999;
-  background-color:black;
-  opacity: 1;
-  transition:  2s ease-in;
-  position: absolute;
-  top: 11%;
-  left: 23%;
-  display:flex;
-  justify-content:center;
-  align-items: center;
-  border-radius: 10px;
-  visibility: hidden;
-}
-
-.fade-out {
-  opacity: 0;
-}
-
-.points-ai {
-  float:left;
-  margin-left:130px;
-  display: block;
-}
-
-.points-human {
-  float:right;
-  margin-right:130px;
-  display: block;
 }
