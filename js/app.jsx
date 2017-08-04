@@ -1,15 +1,13 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 document.addEventListener('DOMContentLoaded', function() {
-//TODO przywroc idiki z beckepa. potem
   class Field extends React.Component {
     render() {
       return (
         <div
           className="field"
           id={this.props.isTaken}
-          onClick={() => this.props.onAction()}
-         />
+          onClick={() => this.props.onAction()} />
       )
     }
   }
@@ -41,7 +39,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
 
 
-    //checks if a field where player wants to move is empty or taken, moves player and then exectues AI
+    // handle click action. checks if a field where player wants to move is empty or taken, moves player and then exectues AI
     handleClick = (i) => {
       let arr = this.state.boardState.slice();
       if (this.state.player === 'computer' || arr[i] === 'X' || arr[i] === 'Y' || this.state.end) {
@@ -99,7 +97,7 @@ document.addEventListener('DOMContentLoaded', function() {
         this.checkDraw()
       }
     }
-
+    //see if there is draw
     checkDraw = () => {
       if (this.state.moveNumber === 9 ) {
         this.setState({end : true})
